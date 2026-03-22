@@ -1,0 +1,1240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="Dawn">
+    
+    <!-- Completely eliminate flash of wrong theme -->
+    <script>
+        (function() {
+            const THEME_KEY = "REDEFINE-THEME-STATUS";
+            const DARK = "dark", LIGHT = "light";
+            
+            // Get preferred theme
+            function getTheme() {
+                try {
+                    const saved = localStorage.getItem(THEME_KEY);
+                    if (saved) {
+                        const { isDark } = JSON.parse(saved);
+                        return isDark ? DARK : LIGHT;
+                    }
+                } catch (e) {}
+                
+                return matchMedia("(prefers-color-scheme: dark)").matches ? DARK : LIGHT;
+            }
+            
+            // Apply theme to document
+            function applyTheme(theme) {
+                const isDark = theme === DARK;
+                const root = document.documentElement;
+                
+                // Set data attribute for CSS variables
+                root.setAttribute("data-theme", theme);
+                
+                // Set classes for compatibility
+                root.classList.add(theme);
+                root.classList.remove(isDark ? LIGHT : DARK);
+                root.style.colorScheme = theme;
+            }
+            
+            // Initial application
+            const theme = getTheme();
+            applyTheme(theme);
+            
+            // Listen for system preference changes
+            matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches }) => {
+                // Only update if using system preference (no localStorage entry)
+                if (!localStorage.getItem(THEME_KEY)) {
+                    applyTheme(matches ? DARK : LIGHT);
+                }
+            });
+            
+            // Set body classes once DOM is ready
+            if (document.readyState !== "loading") {
+                document.body.classList.add(theme + "-mode");
+            } else {
+                document.addEventListener("DOMContentLoaded", () => {
+                    document.body.classList.add(theme + "-mode");
+                    document.body.classList.remove((theme === DARK ? LIGHT : DARK) + "-mode");
+                });
+            }
+        })();
+    </script>
+    
+    <!-- Critical CSS to prevent flash -->
+    <style>
+        :root[data-theme="dark"] {
+            --background-color: #202124;
+            --background-color-transparent: rgba(32, 33, 36, 0.6);
+            --second-background-color: #2d2e32;
+            --third-background-color: #34353a;
+            --third-background-color-transparent: rgba(32, 33, 36, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #ffffff;
+            --second-text-color: #eeeeee;
+            --third-text-color: #bebec6;
+            --fourth-text-color: #999999;
+            --default-text-color: #bebec6;
+            --invert-text-color: #373D3F;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(255, 255, 255, 0.08);
+            --shadow-color-2: rgba(255, 255, 255, 0.05);
+        }
+        
+        :root[data-theme="light"] {
+            --background-color: #fff;
+            --background-color-transparent: rgba(255, 255, 255, 0.6);
+            --second-background-color: #f8f8f8;
+            --third-background-color: #f2f2f2;
+            --third-background-color-transparent: rgba(241, 241, 241, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #16171a;
+            --second-text-color: #2f3037;
+            --third-text-color: #5e5e5e;
+            --fourth-text-color: #eeeeee;
+            --default-text-color: #373D3F;
+            --invert-text-color: #bebec6;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(0, 0, 0, 0.08);
+            --shadow-color-2: rgba(0, 0, 0, 0.05);
+        }
+        
+        body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+        
+        /* Apply body classes as soon as DOM is ready */
+        :root[data-theme="dark"] body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+    </style>
+    
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://dawnyth.github.io/2026/03/22/os-lab0/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+    
+        
+        <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BUAA-OS-lab0">
+<meta property="og:url" content="https://dawnyth.github.io/2026/03/22/os-lab0/index.html">
+<meta property="og:site_name" content="dawn">
+<meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://dawnyth.github.io/images/redefine-og.webp">
+<meta property="article:published_time" content="2026-03-22T13:31:41.951Z">
+<meta property="article:modified_time" content="2026-03-22T16:53:57.338Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://dawnyth.github.io/images/redefine-og.webp">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/light.jpg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/light.jpg">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/light.jpg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            BUAA-OS-lab0 | Dawn&#39;s world
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+        
+            
+                
+                    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500&display=swap" rel="stylesheet">
+                
+    
+            
+                
+                    <style>#subtitle { font-family: "Noto Serif SC", serif !important; font-weight: 500; letter-spacing: 2px; }</style>
+                
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/css/build/tailwind.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+    
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@200..900&display=swap" rel="stylesheet">
+    
+    
+    
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"dawnyth.github.io","root":"/","language":"en"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.0rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":false,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":false,"default":"cc_by_nc_sa","show_title":false,"show_author":false,"show_date":true,"show_updated":true,"show_link":false,"show_license":true},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":true,"family":"Noto Serif SC","url":"https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@200..900&display=swap"},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"side_tools":{"gear_rotation":true,"auto_expand":false},"open_graph":{"enable":true,"image":"/images/redefine-og.webp","description":"Hexo Theme Redefine, Redefine Your Hexo Journey."},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/dawn.jpg","dark":"/images/night.jpg"},"title":"Welcome","subtitle":{"text":["My youth in my nineteen was spent crying on the keyboard"],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":0.1,"backing_speed":0,"starting_delay":0,"backing_delay":0,"loop":false,"smart_backspace":false},"text_color":{"light":"#333","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"11.4.1"}},"version":"2.8.5","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                Dawn&#39;s world
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+
+            
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">0</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">0</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">2</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">BUAA-OS-lab0</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/images/light.jpg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">Dawn</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2026-03-22 21:31:41</span>
+        <span class="mobile">2026-03-22 21:31:41</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2026-03-23 00:53:57</span>
+            <span class="mobile">2026-03-23 00:53:57</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<p>lab0主要侧重工具链的教学，一定程度上培养了同学们读项目的能力。</p>
+<p>上机考点可以大致分为 <code>Makefile</code> 和 <code>bash</code> 文件编写，26年恰好把它们分成了两部分，exam只考了 <code>Makefile</code> ，extra只考了 <code>bash</code> 。</p>
+<p>当然如果你<del>不幸</del>被分到了新主机房且恰巧上机时段网络不稳定，可能还会考察一点 <code>git</code> 相关知识。</p>
+<h1 id="课下学习"><a href="#课下学习" class="headerlink" title="课下学习"></a>课下学习</h1><h2 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h2><h3 id="ls"><a href="#ls" class="headerlink" title="ls"></a>ls</h3><ul>
+<li><code>-l</code> 长格式（<strong>权限</strong>、属主、大小、时间）</li>
+<li><code>-a</code> 显示隐藏</li>
+<li><code>-d</code> 只显示目录</li>
+<li><code>-R</code> 递归列出子目录</li>
+<li><code>-S</code> 按文件大小排序</li>
+<li><code>-r</code> 反向</li>
+</ul>
+<h3 id="touch"><a href="#touch" class="headerlink" title="touch"></a>touch</h3><ul>
+<li>可以批量创建 <code>touch file1 file2 file3</code></li>
+<li>只更新修改时间 <code>touch -m file</code></li>
+</ul>
+<h3 id="mkdir"><a href="#mkdir" class="headerlink" title="mkdir"></a>mkdir</h3><ul>
+<li>递归创建父目录 <code>mkdir -p dir</code></li>
+<li>一次创建多个 <code>mkdir dir1 dir2 dir3</code></li>
+<li>设置权限 <code>mkdir -m 755 dir</code></li>
+<li>补充：<ul>
+<li>不加 <code>-p</code> 时，父目录不存在会报错</li>
+<li>目录已存在时，<code>mkdir dir</code> 报错；<code>mkdir -p dir</code> 不报错</li>
+</ul>
+</li>
+</ul>
+<h3 id="cd"><a href="#cd" class="headerlink" title="cd"></a>cd</h3><ul>
+<li><code>.</code> 当前目录</li>
+<li><code>..</code> 上级目录</li>
+</ul>
+<h3 id="rmdir"><a href="#rmdir" class="headerlink" title="rmdir"></a>rmdir</h3><p>删除空目录</p>
+<h3 id="rm"><a href="#rm" class="headerlink" title="rm"></a>rm</h3><ul>
+<li><code>-r</code> 递归删除</li>
+<li><code>-f</code> 强制删除</li>
+</ul>
+<h3 id="pwd"><a href="#pwd" class="headerlink" title="pwd"></a>pwd</h3><p>显示完整目录</p>
+<h3 id="mv"><a href="#mv" class="headerlink" title="mv"></a>mv</h3><ul>
+<li>递归复制<strong>不加</strong> <code>-r</code></li>
+<li>重命名 <code>mv old.txt new.txt</code></li>
+<li>重命名目录 <code>mv folder1 folder2</code></li>
+<li>移动到目录 <code>mv file folder/</code></li>
+<li>移动多个文件到目录 <code>mv file1 file2 file3 folder/</code></li>
+<li>不覆盖已存在文件 <code>mv -n a.txt /folder</code></li>
+</ul>
+<h3 id="cp"><a href="#cp" class="headerlink" title="cp"></a>cp</h3><ul>
+<li><p>复制多个文件到目录 <code>cp file1 file2 file3 /folder</code></p>
+</li>
+<li><p>递归复制目录 <code>cp -r /folder1 /folder2</code></p>
+</li>
+<li><p><code>-i</code> 复制前确认</p>
+</li>
+<li><p><code>-f</code> 强制</p>
+</li>
+<li><p><code>-n</code> 不覆盖已存在</p>
+</li>
+<li><p><code>-u</code> 仅当源文件较新时复制</p>
+</li>
+</ul>
+<h3 id="rm-1"><a href="#rm-1" class="headerlink" title="rm"></a>rm</h3><ul>
+<li>可同时删除多个</li>
+<li><code>-r</code> 递归</li>
+<li><code>-f</code> 强制</li>
+<li><code>-i</code> 删除前确认</li>
+<li><code>-v</code> 显示删除过程</li>
+</ul>
+<h3 id="tree"><a href="#tree" class="headerlink" title="tree"></a>tree</h3><ul>
+<li><code>tree</code> 显示当前目录树 <code>tree dir</code> 显示指定目录树</li>
+<li><code>tree -L 2</code> 显示层级</li>
+<li><code>tree -d</code> 只显示目录</li>
+<li><code>tree -a</code> 显示隐藏文件</li>
+<li><code>tree -h</code> <code>tree -p</code> 显示文件大小和权限</li>
+<li><code>tree -f</code> 显示完整路径</li>
+</ul>
+<h3 id="cat"><a href="#cat" class="headerlink" title="cat"></a>cat</h3><ul>
+<li>查看多个文件，顺序拼接 <code>cat file1 file2</code></li>
+<li>带行号 <code>cat -n file</code></li>
+<li>仅给非空行编号 <code>cat -b file</code></li>
+<li>显示不可见字符 <code>cat -A file</code></li>
+<li>显示行尾$ <code>cat -e file</code></li>
+<li>显示tab <code>cat -t file</code></li>
+</ul>
+<h3 id="echo"><a href="#echo" class="headerlink" title="echo"></a>echo</h3><p>输出变量&#x2F;文本到终端</p>
+<ul>
+<li>输出字符串 <code>echo &quot;hello&quot;</code></li>
+<li>输出变量的值 <code>name=&quot;dawn&quot;;echo &quot;$$name&quot;</code>(在Makefile里要用$$获得变量的值)</li>
+<li>常见选项<ul>
+<li><code>-n</code> 不换行</li>
+<li><code>-e</code> 启用转义 <code>echo -e &quot;a\nb\tc&quot;</code></li>
+<li><code>-E</code> 禁用转义 <code>echo -E &quot;a\nb\tc&quot;</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="head"><a href="#head" class="headerlink" title="head"></a>head</h3><ul>
+<li><code>-n</code> 显示前x行内容</li>
+<li><code>-c</code> 显示前x字节内容</li>
+</ul>
+<h3 id="tail"><a href="#tail" class="headerlink" title="tail"></a>tail</h3><ul>
+<li><code>-n</code> 显示后x行内容</li>
+<li><code>-c</code> 显示后x字节内容</li>
+<li><code>-f</code> 输出后续添加内容</li>
+</ul>
+<h2 id="查找操作"><a href="#查找操作" class="headerlink" title="查找操作"></a>查找操作</h2><h3 id="find"><a href="#find" class="headerlink" title="find"></a>find</h3><p> <code>find FileDir</code></p>
+<ul>
+<li><code>-name</code> 按文件名 ，不区分大小写</li>
+<li><code>-iname</code> 按文件名区分大小写</li>
+<li><code>-type f</code> 只看文件</li>
+<li><code>-type d</code> 只看文件夹</li>
+<li><code>-maxdepth 2</code> 最大搜索层次</li>
+<li><code>-mindepth 1</code> 最小搜索层次</li>
+<li><code>-perm 644</code>  按权限搜索</li>
+<li><code>-path ./xxx/file</code> 指定文件夹搜索</li>
+</ul>
+<h3 id="grep"><a href="#grep" class="headerlink" title="grep"></a>grep</h3><p><code>grep content Dir</code></p>
+<ul>
+<li><p><code>-i</code> 忽略大小写</p>
+</li>
+<li><p><code>-n</code> 显示行号</p>
+</li>
+<li><p><code>-r</code> 递归搜索</p>
+<p>如果Dir位置是一个文件名，默认省略文件名前缀，只显示 <strong>行号:内容</strong></p>
+<p>强制显示要带 <code>-H</code></p>
+<p>如果Dir位置真的是Dir，显示结果为 <strong>Dir&#x2F;…&#x2F;file:行号:内容</strong></p>
+<p>注意这里 <code>./Dir</code> 和 <code>Dir</code> 亦有区别</p>
+</li>
+<li><p><code>-w</code> 整词搜索</p>
+</li>
+<li><p><code>-x</code> 整行匹配（一模一样）</p>
+</li>
+<li><p><code>-c</code> 统计content在<strong>文件夹下每个文件</strong>内出现次数</p>
+</li>
+</ul>
+<h3 id="wc"><a href="#wc" class="headerlink" title="wc"></a>wc</h3><ul>
+<li>统计行数 <code>wc -l file</code></li>
+<li>统计字符数 <code>wc -m file</code></li>
+<li>统计单词数 <code>wc -w file</code></li>
+<li>统计字节数 <code>wc -c file</code></li>
+<li>只想获得数字可搭配重定向 <code>wc -l &lt; file</code></li>
+</ul>
+<p>或许也可用循环做</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">统计行数：</span><br><span class="line"></span><br><span class="line">  count=0</span><br><span class="line">  while read -r line; do</span><br><span class="line">    count=$((count + 1))</span><br><span class="line">  done &lt; file.txt</span><br><span class="line"></span><br><span class="line">  echo &quot;$count&quot;</span><br><span class="line"></span><br><span class="line">  count=0</span><br><span class="line">  while read -r line || [ -n &quot;$line&quot; ]; do</span><br><span class="line">    count=$((count + 1))</span><br><span class="line">  done &lt; file.txt</span><br><span class="line"></span><br><span class="line">  echo &quot;$count&quot;</span><br><span class="line">  </span><br><span class="line">统计字符数：</span><br><span class="line">  count=0</span><br><span class="line">  while read -r line || [ -n &quot;$line&quot; ]; do</span><br><span class="line">    count=$((count + $&#123;#line&#125; + 1))</span><br><span class="line">  done &lt; file.txt</span><br><span class="line"></span><br><span class="line">  echo &quot;$count&quot;</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="编辑操作"><a href="#编辑操作" class="headerlink" title="编辑操作"></a>编辑操作</h2><h3 id="chmod"><a href="#chmod" class="headerlink" title="chmod"></a>chmod</h3><div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-rwxr-xr--</span><br><span class="line">↑↑↑↑↑↑↑↑↑</span><br><span class="line">│└──┘└──┘└──┘</span><br><span class="line">│ owner group others</span><br><span class="line">文件类型(- 文件, d 目录)</span><br></pre></td></tr></table></figure></div>
+
+<p>每组三位分别是 <code>r</code>（读）、<code>w</code>（写）、<code>x</code>（执行），没有权限用 <code>-</code> 表示</p>
+<p>三位代表的2进制数传化成十进制</p>
+<ul>
+<li><p>数字模式赋权 <code>chmod num file</code> 如 <code>chmod 440 file1</code></p>
+</li>
+<li><p>符号模式赋权 </p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">chmod +(-)x(r\w) file	#所有人</span><br><span class="line">chmod u(g/o/a)+(-)x(r/w) file	#特定人</span><br><span class="line">chmod u(g/o/a)=x(r/w)	#设置</span><br><span class="line">chmod g-x a+x file	# 同时修改多个 </span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>递归修改整个目录 <code>-R</code></p>
+</li>
+<li><p>查看权限 <code>ls -l file</code></p>
+</li>
+</ul>
+<h3 id="diff"><a href="#diff" class="headerlink" title="diff"></a>diff</h3><p>比较文件差异 <code>diff [option] file1 file2</code></p>
+<ul>
+<li><p><code>-r</code> 递归比较目录</p>
+</li>
+<li><p><code>-q</code> 仅显示文件是否不同，不显示具体差异</p>
+<p><code>diff file1 file2 &gt; /dev/null 2&gt;&amp;1</code> （防止污染终端）</p>
+<p><code>echo $?</code> 获取返回值 </p>
+<ul>
+<li>0相同</li>
+<li>1不同</li>
+<li>2文件不存在（出错）</li>
+</ul>
+</li>
+<li><p><code>-i</code> 忽略大小写</p>
+</li>
+<li><p><code>-w</code> 忽略所有空白</p>
+</li>
+</ul>
+<h3 id="sed"><a href="#sed" class="headerlink" title="sed"></a>sed</h3><h4 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h4><div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sed [选项] &#x27;指令&#x27; 文件</span><br><span class="line">sed [选项] &#x27;指令&#x27; &lt;&lt; 文件    # 也可以从管道读入</span><br><span class="line">cat file.txt | sed &#x27;指令&#x27;</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="替换s"><a href="#替换s" class="headerlink" title="替换s"></a>替换s</h4><div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 基本替换（只替换每行第一个）</span></span><br><span class="line">sed <span class="string">&#x27;s/old/new/&#x27;</span> file.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 全局替换（每行所有匹配）</span></span><br><span class="line">sed <span class="string">&#x27;s/old/new/g&#x27;</span> file.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 替换第 2 个匹配</span></span><br><span class="line">sed <span class="string">&#x27;s/old/new/2&#x27;</span> file.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 忽略大小写</span></span><br><span class="line">sed <span class="string">&#x27;s/old/new/gi&#x27;</span> file.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 直接修改原文件（-i）</span></span><br><span class="line">sed -i <span class="string">&#x27;s/old/new/g&#x27;</span> file.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改原文件并备份</span></span><br><span class="line">sed -i.bak <span class="string">&#x27;s/old/new/g&#x27;</span> file.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 第2行替换</span></span><br><span class="line">sed <span class="string">&#x27;2s/foo/bar/&#x27;</span> file     </span><br><span class="line"></span><br><span class="line"><span class="comment"># 包含 error 的行才替换</span></span><br><span class="line">sed <span class="string">&#x27;/error/s/foo/bar/g&#x27;</span> file   </span><br><span class="line"></span><br><span class="line"><span class="comment"># 去掉行首空白</span></span><br><span class="line">sed <span class="string">&#x27;s/^[[:space:]]\+//&#x27;</span> input.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 替换完整单词</span></span><br><span class="line">sed <span class="string">&#x27;s/\&lt;word\&gt;/replace/g&#x27;</span> file.txt</span><br></pre></td></tr></table></figure></div>
+
+<p>注意，-i在指令外面代表直接修改，在指令末尾代表忽略大小写</p>
+<p>g代表一整行，行数的选择看s之前</p>
+<h4 id="删除-d"><a href="#删除-d" class="headerlink" title="删除 d"></a>删除 <code>d</code></h4><div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 删除第 3 行</span></span><br><span class="line">sed <span class="string">&#x27;3d&#x27;</span> file.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除最后一行</span></span><br><span class="line">sed <span class="string">&#x27;$d&#x27;</span> file.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除第 2 到第 5 行</span></span><br><span class="line">sed <span class="string">&#x27;2,5d&#x27;</span> file.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除第2行和第5行</span></span><br><span class="line">sed <span class="string">&#x27;2d;5d&#x27;</span> file.txt</span><br><span class="line">sed -e <span class="string">&#x27;2d&#x27;</span> -e <span class="string">&#x27;5d&#x27;</span> file.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除包含某字符串的行</span></span><br><span class="line">sed <span class="string">&#x27;/error/d&#x27;</span> file.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除以 # 开头的行</span></span><br><span class="line">sed <span class="string">&#x27;/^#/d&#x27;</span> file           </span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除空行</span></span><br><span class="line">sed <span class="string">&#x27;/^$/d&#x27;</span> file.txt</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="打印-p（配合-n-使用）"><a href="#打印-p（配合-n-使用）" class="headerlink" title="打印 p（配合 -n 使用）"></a>打印 <code>p</code>（配合 <code>-n</code> 使用）</h4><div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 只打印第 3 行（-n 抑制默认输出）</span></span><br><span class="line">sed -n <span class="string">&#x27;3p&#x27;</span> file.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打印第 2 到第 5 行</span></span><br><span class="line">sed -n <span class="string">&#x27;2,5p&#x27;</span> file.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打印2和5行</span></span><br><span class="line">sed -n <span class="string">&#x27;2p;5p&#x27;</span> file.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打印包含某字符串的行</span></span><br><span class="line">sed -n <span class="string">&#x27;/error/p&#x27;</span> file.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 关于最后一行</span></span><br><span class="line">sed -n <span class="string">&quot;1,$ p&quot;</span> file.txt</span><br><span class="line">sed -n <span class="string">&quot;1,\$p&quot;</span> file.txt</span><br><span class="line">sed -n <span class="string">&#x27;1,$p&#x27;</span> file.txt</span><br><span class="line">sed -n <span class="string">&#x27;1p;$p&#x27;</span> file.txt	<span class="comment">#打印1和最后一行</span></span><br><span class="line"><span class="comment">#因为&quot;会解析$，&#x27;不会解析$，所以&quot;要带空格区分，&#x27;不用</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 从第一行开始每隔两行打印一行</span></span><br><span class="line">sed -n <span class="string">&#x27;1~2p&#x27;</span> file.txtmake</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="插入-i-和追加-a和代替c"><a href="#插入-i-和追加-a和代替c" class="headerlink" title="插入 i 和追加 a和代替c"></a>插入 <code>i</code> 和追加 <code>a</code>和代替<code>c</code></h4><div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在第 3 行前插入</span></span><br><span class="line">sed <span class="string">&#x27;3i\新内容&#x27;</span> file.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在第 3 行后追加</span></span><br><span class="line">sed <span class="string">&#x27;3a\新内容&#x27;</span> file.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 整行替换</span></span><br><span class="line">sed <span class="string">&#x27;2c\新内容&#x27;</span> file.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在匹配行前插入</span></span><br><span class="line">sed <span class="string">&#x27;/error/i\--- 发现错误 ---&#x27;</span> file.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 行首加前缀（如日志级别）</span></span><br><span class="line">sed <span class="string">&#x27;s/^/[INFO] /&#x27;</span> input.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 行尾加后缀</span></span><br><span class="line">sed <span class="string">&#x27;s/$/ ;/&#x27;</span> input.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 替换某行（指令中可带空格）</span></span><br><span class="line">sed <span class="string">&#x27;1c replace&#x27;</span> file</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="多个指令同时执行"><a href="#多个指令同时执行" class="headerlink" title="多个指令同时执行"></a>多个指令同时执行</h4><div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 用 -e 串联</span></span><br><span class="line">sed -e <span class="string">&#x27;s/foo/bar/g&#x27;</span> -e <span class="string">&#x27;/error/d&#x27;</span> file.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或用分号</span></span><br><span class="line">sed <span class="string">&#x27;s/foo/bar/g; /error/d&#x27;</span> file.txt</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="实用例子"><a href="#实用例子" class="headerlink" title="实用例子"></a>实用例子</h4><div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 删除行首空格</span></span><br><span class="line">sed <span class="string">&#x27;s/^[ \t]*//&#x27;</span> file.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除行尾空格</span></span><br><span class="line">sed <span class="string">&#x27;s/[ \t]*$//&#x27;</span> file.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在每行行首加 #</span></span><br><span class="line">sed <span class="string">&#x27;s/^/#/&#x27;</span> file.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打印行号</span></span><br><span class="line">sed <span class="string">&#x27;=&#x27;</span> file.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 替换某几行的内容</span></span><br><span class="line">sed <span class="string">&#x27;2,4s/old/new/g&#x27;</span> file.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看文件第 10 到 20 行</span></span><br><span class="line">sed -n <span class="string">&#x27;10,20p&#x27;</span> file.txt</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="常用选项"><a href="#常用选项" class="headerlink" title="常用选项"></a>常用选项</h4><table>
+<thead>
+<tr>
+<th>选项</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>-i</code></td>
+<td>直接修改原文件</td>
+</tr>
+<tr>
+<td><code>-n</code></td>
+<td>抑制默认输出</td>
+</tr>
+<tr>
+<td><code>-e</code></td>
+<td>指定多个指令</td>
+</tr>
+<tr>
+<td><code>-r</code> &#x2F; <code>-E</code></td>
+<td>使用扩展正则表达式</td>
+</tr>
+</tbody></table>
+<h3 id="awk"><a href="#awk" class="headerlink" title="awk"></a>awk</h3><h4 id="基本格式"><a href="#基本格式" class="headerlink" title="基本格式"></a>基本格式</h4><p><code>awk &#39;条件 {动作}&#39; file</code></p>
+<h4 id="分隔符处理"><a href="#分隔符处理" class="headerlink" title="分隔符处理"></a>分隔符处理</h4><p>分隔符可以是字符串or正则表达式</p>
+<ul>
+<li>多字符串分隔 <code>awk -F&quot;::&quot; &#39;{print $1,$2}&#39; file</code></li>
+<li>例如“逗号或分号”都算分隔 <code> awk -F&#39;[,;]&#39; &#39;{print $1,$2}&#39; file</code></li>
+</ul>
+<div class="code-container" data-rel="Makefile"><figure class="iseeu highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 用 : 分列</span></span><br><span class="line">awk -F: &#x27;&#123;print $1,$3&#125;&#x27; /etc/passwd</span><br><span class="line"><span class="comment"># 输出用逗号分隔</span></span><br><span class="line">awk &#x27;BEGIN&#123;OFS=<span class="string">&quot;,&quot;</span>&#125; &#123;print $1,$2&#125;&#x27; file</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li><p>默认空白分隔是特殊规则</p>
+</li>
+<li><p><code>FS=&quot; &quot;</code> 时，会把连续空格&#x2F;tab 当一个分隔符，并忽略行首行尾空白</p>
+</li>
+<li><p>像 <code>|</code>、<code>.</code>、<code>*</code> 这类正则元字符，按需转义</p>
+</li>
+</ul>
+<h4 id="BEGIN-END-块"><a href="#BEGIN-END-块" class="headerlink" title="BEGIN&#x2F;END 块"></a>BEGIN&#x2F;END 块</h4><p> <code>awk &#39;BEGIN{print &quot;start&quot;} {print $1} END{print &quot;end&quot;}&#39; file</code></p>
+<h4 id="统计-计算"><a href="#统计-计算" class="headerlink" title="统计&#x2F;计算"></a>统计&#x2F;计算</h4><div class="code-container" data-rel="Makefile"><figure class="iseeu highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 第一列求和</span></span><br><span class="line">awk &#x27;&#123;sum+=$1&#125; END&#123;print sum&#125;&#x27; file</span><br><span class="line"><span class="comment"># 按第一列计数</span></span><br><span class="line">awk &#x27;&#123;cnt[$1]++&#125; END&#123;for(k in cnt) print k,cnt[k]&#125;&#x27; file</span><br><span class="line"><span class="comment"># 第二列最大值</span></span><br><span class="line">awk &#x27;max&lt;$2&#123;max=$2&#125; END&#123;print max&#125;&#x27; file</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="条件判断"><a href="#条件判断" class="headerlink" title="条件判断"></a>条件判断</h4><div class="code-container" data-rel="Makefile"><figure class="iseeu highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 第三列大于100的行</span></span><br><span class="line">awk &#x27;$3&gt;100 &#123;print $1,$3&#125;&#x27; file</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="常用指令"><a href="#常用指令" class="headerlink" title="常用指令"></a>常用指令</h4><div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 打印整文件</span></span><br><span class="line">awk <span class="string">&#x27;&#123;print&#125;&#x27;</span> file</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打印第 1、3 列</span></span><br><span class="line">awk <span class="string">&#x27;&#123;print $1,$3&#125;&#x27;</span> file</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打印最后一列</span></span><br><span class="line">awk <span class="string">&#x27;&#123;print $NF&#125;&#x27;</span> file</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打印第 2 到最后列</span></span><br><span class="line">awk <span class="string">&#x27;&#123;for(i=2;i&lt;=NF;i++) printf &quot;%s%s&quot;,$i,(i==NF?ORS:OFS)&#125;&#x27;</span> file</span><br><span class="line"></span><br><span class="line"><span class="comment"># 显示行号+内容</span></span><br><span class="line">awk <span class="string">&#x27;&#123;print NR,$0&#125;&#x27;</span> file</span><br><span class="line"></span><br><span class="line"><span class="comment"># 只看第 10 行</span></span><br><span class="line">awk <span class="string">&#x27;NR==10&#x27;</span> file</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打印 10~20 行</span></span><br><span class="line">awk <span class="string">&#x27;NR&gt;=10 &amp;&amp; NR&lt;=20&#x27;</span> file</span><br><span class="line"></span><br><span class="line"><span class="comment"># 跳过表头（从第2行开始）</span></span><br><span class="line">awk <span class="string">&#x27;NR&gt;1&#x27;</span> file</span><br><span class="line"></span><br><span class="line"><span class="comment"># 匹配包含 error 的行</span></span><br><span class="line">awk <span class="string">&#x27;/error/&#x27;</span> file</span><br><span class="line"></span><br><span class="line"><span class="comment"># 不包含 error 的行</span></span><br><span class="line">awk <span class="string">&#x27;!/error/&#x27;</span> file</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除空行</span></span><br><span class="line">awk <span class="string">&#x27;NF&#x27;</span> file</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除“空白行”（含空格/tab 也算空）</span></span><br><span class="line">awk <span class="string">&#x27;$0 !~ /^[[:space:]]*$/&#x27;</span> file</span><br><span class="line"></span><br><span class="line"><span class="comment"># 以冒号分隔取第1、3列</span></span><br><span class="line">awk -F: <span class="string">&#x27;&#123;print $1,$3&#125;&#x27;</span> file</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出改成逗号分隔（CSV风格）</span></span><br><span class="line">awk <span class="string">&#x27;BEGIN&#123;OFS=&quot;,&quot;&#125; &#123;print $1,$2,$3&#125;&#x27;</span> file</span><br><span class="line"></span><br><span class="line"><span class="comment"># 第一列求和</span></span><br><span class="line">awk <span class="string">&#x27;&#123;sum+=$1&#125; END&#123;print sum&#125;&#x27;</span> file</span><br><span class="line"></span><br><span class="line"><span class="comment"># 第一列求平均</span></span><br><span class="line">awk <span class="string">&#x27;&#123;sum+=$1; n++&#125; END&#123;if(n) print sum/n&#125;&#x27;</span> file</span><br><span class="line"></span><br><span class="line"><span class="comment"># 求某列最大值（第3列）</span></span><br><span class="line">awk <span class="string">&#x27;NR==1&#123;max=$3&#125; $3&gt;max&#123;max=$3&#125; END&#123;print max&#125;&#x27;</span> file</span><br><span class="line"></span><br><span class="line"><span class="comment"># 按第一列分组计数</span></span><br><span class="line">awk <span class="string">&#x27;&#123;cnt[$1]++&#125; END&#123;for(k in cnt) print k,cnt[k]&#125;&#x27;</span> file</span><br><span class="line"></span><br><span class="line"><span class="comment"># 去重（按整行）</span></span><br><span class="line">awk <span class="string">&#x27;!seen[$0]++&#x27;</span> file</span><br><span class="line"></span><br><span class="line"><span class="comment"># 两文件按第一列关联</span></span><br><span class="line">awk <span class="string">&#x27;NR==FNR&#123;a[$1]=$2; next&#125; ($1 in a)&#123;print $1,a[$1],$2&#125;&#x27;</span> file1 file2</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="cut"><a href="#cut" class="headerlink" title="cut"></a>cut</h3><p>按列切文本，如 <code>cut -d &#39;:&#39; -f 1 file</code> 为以 <code>:</code> 为分隔符，取第一行</p>
+<ul>
+<li><p><code>-d</code> 选择分隔符</p>
+</li>
+<li><p><code>-f</code> 选择列数</p>
+</li>
+<li><p><code>-c</code> 按字符位置截取</p>
+<p><code>cut -c 1-3 file</code> 按字符取前三个</p>
+</li>
+</ul>
+<h3 id="sort"><a href="#sort" class="headerlink" title="sort"></a>sort</h3><p>按行排序</p>
+<ul>
+<li><p><code>-n</code> 数字排序</p>
+</li>
+<li><p><code>-r</code> 倒序</p>
+</li>
+<li><p><code>-t</code> 选择分隔符 <code>-k</code> 选择排列列数</p>
+<p><code>sort -t &#39;:&#39; -k 2 file</code> 按第二列排序</p>
+</li>
+</ul>
+<h3 id="uniq"><a href="#uniq" class="headerlink" title="uniq"></a>uniq</h3><p>去除相邻重复行（比较单位是行，所以最好要先切割，再排序，再去重）</p>
+<ul>
+<li><code>-c</code> 统计每行出现次数</li>
+<li><code>-d</code> 只显示重复的行</li>
+<li><code>-u</code> 只显示不重复的行</li>
+</ul>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 切割去重</span><br><span class="line">cut -d &#x27;:&#x27; -f 2 file | sort | uniq</span><br><span class="line"># 统计出现次数</span><br><span class="line">cut -d &#x27;:&#x27; -f 2 file | sort | uniq -c</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="gcc"><a href="#gcc" class="headerlink" title="gcc"></a>gcc</h2><h3 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h3><p><code>gcc [选项] 源文件 -o 输出文件</code></p>
+<ul>
+<li><code>-o</code>（指定输出）</li>
+<li><code>-S</code>（生成汇编）</li>
+<li><code>-Wall</code>（显示警告）</li>
+<li><code>-c</code>（仅编译不链接）</li>
+<li><code>-M</code>（列出依赖）</li>
+<li><code>-I</code>（指定头文件目录）</li>
+</ul>
+<p>GCC 编译过程大致可以理解成：</p>
+<ol>
+<li>预处理：-E  (.i)</li>
+<li>编译成汇编：-S (.s)</li>
+<li>汇编成目标文件：-c (.o)</li>
+<li>链接成可执行文件</li>
+</ol>
+<h2 id="Makefile"><a href="#Makefile" class="headerlink" title="Makefile"></a>Makefile</h2><h3 id="基本规则"><a href="#基本规则" class="headerlink" title="基本规则"></a>基本规则</h3><div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">target:depandence</span><br><span class="line">	command</span><br></pre></td></tr></table></figure></div>
+
+<p>每一个command代表一个shell，所以如果要连续需要用 <code>;</code></p>
+<ul>
+<li>伪目标 <code>.PHONY</code> （是target，每次make都重新执行）</li>
+<li>变量<ul>
+<li>定义 <code>:=</code> 直接展开</li>
+<li>引用 <code>$(变量名)</code></li>
+</ul>
+</li>
+<li>自动变量<ul>
+<li><code>$@</code> 目标</li>
+<li><code>$&lt;</code> 第一个依赖</li>
+<li><code>$^</code> 所有依赖</li>
+</ul>
+</li>
+</ul>
+<h2 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h2><ul>
+<li>常用命令：<ul>
+<li><code>git init</code>：初始化仓库</li>
+<li><code>git status</code>：查看文件状态</li>
+<li><code>git add</code>：将修改加入暂存区</li>
+<li><code>git commit</code>：提交暂存区内容（<code>-m</code> 添加说明）</li>
+<li><code>git log</code>：查看提交历史</li>
+<li><code>git branch</code>：查看&#x2F;创建分支（<code>-d</code> 删除、<code>-D</code> 强制删除、<code>-a</code> 查看所有）</li>
+<li><code>git checkout</code>：切换分支或恢复文件（<code>-- &lt;file&gt;</code> 丢弃工作区修改）</li>
+<li><code>git reset</code>：版本回退（<code>--hard</code>、<code>HEAD~</code>、<code>&lt;hash&gt;</code>）</li>
+<li><code>git push</code> &#x2F; <code>git pull</code>：与远程仓库同步</li>
+<li><code>git rm --cached</code>：从暂存区移除文件</li>
+<li><code>git clean -f</code>：清除未跟踪文件</li>
+<li><code>git restore</code>：撤销工作区修改（与 <code>checkout --</code> 类似）</li>
+<li><code>git config</code>：设置用户信息（<code>user.email</code>、<code>user.name</code>）</li>
+</ul>
+</li>
+<li>三棵树模型：工作区、暂存区、HEAD</li>
+</ul>
+<h2 id="shell脚本编程"><a href="#shell脚本编程" class="headerlink" title="shell脚本编程"></a>shell脚本编程</h2><h3 id="脚本结构"><a href="#脚本结构" class="headerlink" title="脚本结构"></a>脚本结构</h3><p><code>#!/bin/bash</code> 指定解释器</p>
+<p>如果题目说用 <code>bash xxx</code> 运行则可以不写</p>
+<ul>
+<li>位置参数：<code>$0</code>（脚本名）、<code>$1</code>、<code>$2</code>… 表示传入参数，<code>$#</code> 参数个数，<code>$*</code> 或 <code>$@</code> 所有参数</li>
+<li>特殊变量：<code>$?</code>（上一条命令返回值）</li>
+</ul>
+<h3 id="条件判断-1"><a href="#条件判断-1" class="headerlink" title="条件判断"></a>条件判断</h3><p><strong>if-else</strong></p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">if [ 条件 ]; then</span><br><span class="line">    # 执行</span><br><span class="line">elif [ 条件 ]; then</span><br><span class="line">    # 执行</span><br><span class="line">else</span><br><span class="line">    # 执行</span><br><span class="line">fi</span><br></pre></td></tr></table></figure></div>
+
+<table>
+<thead>
+<tr>
+<th>result</th>
+<th>C</th>
+<th>bash退出码</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>true</td>
+<td>!&#x3D;0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>false</td>
+<td>0</td>
+<td>!&#x3D;0</td>
+</tr>
+</tbody></table>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">if diff -q file1 file2 &gt; /dev/null 2&gt;&amp;1 ; then</span><br><span class="line">	echo &quot;same&quot;</span><br><span class="line">else</span><br><span class="line">	echo &quot;diff&quot;</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">diff -q file1 file2 &gt; /dev/null 2&gt;&amp;1</span><br><span class="line">if [[ $? -eq 0 ]];then</span><br><span class="line">	echo &quot;same&quot;</span><br><span class="line">else </span><br><span class="line">	echo &quot;diff&quot;</span><br><span class="line">fi</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li><code>[[ $a == foo* ]]</code>  模式匹配</li>
+<li><code>[[ $a == &quot;foo*&quot; ]]</code> 纯字符串比较</li>
+</ul>
+<h3 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h3><h4 id="for"><a href="#for" class="headerlink" title="for"></a>for</h4><p><code>for 变量 in 列表; do ... done</code></p>
+<h4 id="while"><a href="#while" class="headerlink" title="while"></a>while</h4><p><code>while [ 条件 ]; do ... done</code></p>
+<p>按行读取</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">while read -r line;</span><br><span class="line">do</span><br><span class="line">	echo &quot;$line&quot;</span><br><span class="line">done &lt; file.txt</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="循环控制"><a href="#循环控制" class="headerlink" title="循环控制"></a>循环控制</h4><p><code>continue</code> <code>break</code></p>
+<h3 id="算术运算"><a href="#算术运算" class="headerlink" title="算术运算"></a>算术运算</h3><h4 id=""><a href="#" class="headerlink" title="(())"></a><code>(())</code></h4><p>算术语句&#x2F;条件执行，用于流程控制、变量自增</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">i=1</span><br><span class="line">((i++))</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$i</span>&quot;</span> <span class="comment">#2</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> ((i==<span class="number">0</span>)); <span class="keyword">then</span></span><br><span class="line">	//balabala</span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure></div>
+
+<h4 id="-1"><a href="#-1" class="headerlink" title="$(())"></a><code>$(())</code></h4><p>把里面当“算术表达式”求值后再展开成字符串（用于赋值、输出、传参）</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">i=1</span><br><span class="line">x=$((i+<span class="number">3</span>))</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$x</span>&quot;</span>		<span class="comment">#4</span></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="函数运算"><a href="#函数运算" class="headerlink" title="函数运算"></a>函数运算</h3><ul>
+<li>定义：name() { … }</li>
+<li>调用：直接写 name</li>
+<li>参数：$1、$2、$@</li>
+<li>状态码：return 0（真）&#x2F;1</li>
+<li>真正传回文本：用 echo + $(…)</li>
+</ul>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">add</span></span>() &#123;</span><br><span class="line">  <span class="built_in">local</span> a=<span class="variable">$1</span></span><br><span class="line">  <span class="built_in">local</span> b=<span class="variable">$2</span></span><br><span class="line">  <span class="built_in">echo</span> $((a + b))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">result=$(add 3 5)</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$result</span>&quot;</span>		<span class="comment">#8</span></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="重定向"><a href="#重定向" class="headerlink" title="重定向"></a>重定向</h3><p>重定向只重定向标准输出，错误信息仍显示在屏幕上，因为错误走的是 stderr</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 只重定向stdout</span></span><br><span class="line">sed <span class="string">&quot;s/REPLACE/0/g&quot;</span> ./origin/code/0.c &gt; ./result/code/0.c</span><br><span class="line"></span><br><span class="line"><span class="comment"># 同时重定向 stdout 和 stderr</span></span><br><span class="line">sed <span class="string">&quot;s/REPLACE/0/g&quot;</span> ./origin/code/0.c &gt; ./result/code/0.c 2&gt;&amp;1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 只丢弃 stderr</span></span><br><span class="line">sed <span class="string">&quot;s/REPLACE/0/g&quot;</span> ./origin/code/0.c &gt; ./result/code/0.c 2&gt;/dev/null</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li><p><code>&gt;</code> 等价于 <code>1&gt;</code> ，重定向标准输出</p>
+</li>
+<li><p><code>&amp;1</code> 指代stdout当前指向的地方，所以 <code>&gt;&amp;1</code> 之前要有 <code>&gt;</code> </p>
+</li>
+<li><p><code>/dev/null</code> 虚拟设备，相当于丢弃</p>
+</li>
+<li><p><code>&gt;</code>：覆盖输出到文件</p>
+</li>
+<li><p><code>&gt;&gt;</code>：追加输出到文件</p>
+</li>
+<li><p><code>&lt;</code>：从文件输入</p>
+</li>
+<li><p><code>2&gt;</code>：重定向错误输出</p>
+</li>
+<li><p><code>&amp;&gt;</code>：同时重定向标准输出和错误</p>
+</li>
+</ul>
+<h3 id="管道符"><a href="#管道符" class="headerlink" title="管道符"></a>管道符</h3><p><code>|</code> 将前一个命令的stdout作为后一个命令的stdin</p>
+<p>在sed中如果对同一段文字进行多次修改，用 <code>|</code> 和用 <code>-e</code> 效果是一样的</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;hello 123&quot; | sed -e &#x27;s/hello/hi/&#x27; -e &#x27;s/123/456/&#x27;</span><br><span class="line">echo &quot;hello 123&quot; | sed &#x27;s/hello/hi/; s/123/456/&#x27;</span><br></pre></td></tr></table></figure></div>
+
+<h1 id="课上测试"><a href="#课上测试" class="headerlink" title="课上测试"></a>课上测试</h1><h2 id="exam"><a href="#exam" class="headerlink" title="exam"></a>exam</h2><p>一上来给干晕字了，vim一下Makefile更是花花绿绿。本人的做题顺序是先看代码，看不懂的地方再回去看字。</p>
+<p>考试的时候被卡的地方是编译依赖出问题，因为当时我把所有target都加入了 <code>.PHONY</code> 里，只保留 <code>run</code>、 <code>all</code> 和 <code>clean</code> 就过了。试后得知此处为助教的小巧思。但很符合Makefile的复用思想，减少了重复编译对资源的浪费。总结来说就是，<code>.PHONY</code> 里放用来执行动作的target，不放用来生成文件的target。</p>
+<p>考试后发现一个很有意思的点。以下是部分能够测试通过的代码。</p>
+<div class="code-container" data-rel="Makefile"><figure class="iseeu highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">COMMON_FILE = main.c post_calc.c common.h</span><br><span class="line"></span><br><span class="line"><span class="section">ver1: <span class="variable">$(COMMON_FILE)</span> calc1.c</span></span><br><span class="line"><span class="comment"># <span class="doctag">TODO:</span> fill the remaining dependency</span></span><br><span class="line">        gcc -I . <span class="variable">$(COMMON_FILE)</span> calc1.c -o ver1</span><br><span class="line"><span class="comment"># <span class="doctag">TODO:</span> fill the remaining commands</span></span><br></pre></td></tr></table></figure></div>
+
+<p>但课下与同学交流的时候发现有同学根本没注意到要使用 <code>-I</code> 来链接头文件库，即这样看上去完全没有链接库的代码也可以通过。</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ver1: $(COMMON_FILE) calc1.c</span><br><span class="line">        gcc $(COMMON_FILE) calc1.c -o ver1</span><br></pre></td></tr></table></figure></div>
+
+<p>询问助教之后发现此处因为.h文件和调用它的.c文件在同一级文件夹下，C编译的时候会按<code>#include &quot;common.h&quot;</code>，在main.c所在当前目录搜到common.h。</p>
+<h2 id="extra"><a href="#extra" class="headerlink" title="extra"></a>extra</h2><p>可能extra在要独立完成一个shell脚本吧。</p>
+<p>感觉这道题本人爽在看题不仔细。上机时助教有给提示说可以调整if-else顺序实现退出，当时还困惑这里为什么会给提示，直到下机后听到同学吐槽不知道该exit到哪去（）。</p>
+<p>可能要注意的点如下</p>
+<ul>
+<li><p><code>mkdir -p -m xxx</code> 不会设置递归创建的父级文件夹的权限，需要手动设置</p>
+</li>
+<li><p><code>grep &quot;ERROR&quot; &quot;./logs/$1/error.log&quot;&gt;/dev/null</code> 在为true时返回0，所以有两种写法</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> grep <span class="string">&quot;ERROR&quot;</span> <span class="string">&quot;./logs/<span class="variable">$1</span>/error.log&quot;</span>&gt;/dev/;</span><br><span class="line"></span><br><span class="line">grep <span class="string">&quot;ERROR&quot;</span> <span class="string">&quot;./logs/<span class="variable">$1</span>/error.log&quot;</span>&gt;/dev/null</span><br><span class="line"><span class="keyword">if</span> [[ $? -eq 0 ]];</span><br></pre></td></tr></table></figure></div></li>
+</ul>
+<h2 id="可能遇到的网络问题"><a href="#可能遇到的网络问题" class="headerlink" title="可能遇到的网络问题"></a>可能遇到的网络问题</h2><p>前半小时一直在断网，本人误把 <code>makefile.inc</code> 文件当成Makefile的swap文件删了，这个时候就要用到伟大的<strong>git</strong>。</p>
+<p>当时的本人还不太会git，所以执行了<code>git restore .</code>，复原了完工大半的Makefile。重活一次本人一定要使用<code>git restore makefile.inc</code> 来恢复被删掉的文件。</p>
+
+		</div>
+
+		
+
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2026/01/22/test1/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">此博客的前世今生</span>
+						<span class="post-nav-item">Next posts</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        Comments
+    </div>
+    
+
+        
+            
+    <div id="waline"></div>
+    <script type="module" data-swup-reload-script>
+      import { init } from '/js/libs/waline.mjs';
+
+      function loadWaline() {
+        init({
+          el: '#waline',
+          serverURL: 'https://example.example.com',
+          dark: 'body[class~="dark-mode"]',
+          reaction: false,
+          requiredMeta: ['nick', 'mail'],
+          emoji: [],
+                    lang: 'zh-CN',
+        });
+      }
+
+      if (typeof swup !== 'undefined') {
+        loadWaline();
+      } else {
+        window.addEventListener('DOMContentLoaded', loadWaline);
+      }
+    </script>
+
+
+
+        
+    
+</div>
+
+		</div>
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">On this page</div>
+		<div class="page-title">BUAA-OS-lab0</div>
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%BE%E4%B8%8B%E5%AD%A6%E4%B9%A0"><span class="nav-text">课下学习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C"><span class="nav-text">文件操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ls"><span class="nav-text">ls</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#touch"><span class="nav-text">touch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mkdir"><span class="nav-text">mkdir</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cd"><span class="nav-text">cd</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rmdir"><span class="nav-text">rmdir</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rm"><span class="nav-text">rm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pwd"><span class="nav-text">pwd</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mv"><span class="nav-text">mv</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cp"><span class="nav-text">cp</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rm-1"><span class="nav-text">rm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tree"><span class="nav-text">tree</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cat"><span class="nav-text">cat</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#echo"><span class="nav-text">echo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#head"><span class="nav-text">head</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tail"><span class="nav-text">tail</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E6%89%BE%E6%93%8D%E4%BD%9C"><span class="nav-text">查找操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#find"><span class="nav-text">find</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#grep"><span class="nav-text">grep</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#wc"><span class="nav-text">wc</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E8%BE%91%E6%93%8D%E4%BD%9C"><span class="nav-text">编辑操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#chmod"><span class="nav-text">chmod</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#diff"><span class="nav-text">diff</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sed"><span class="nav-text">sed</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#awk"><span class="nav-text">awk</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cut"><span class="nav-text">cut</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sort"><span class="nav-text">sort</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#uniq"><span class="nav-text">uniq</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gcc"><span class="nav-text">gcc</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95"><span class="nav-text">基本用法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Makefile"><span class="nav-text">Makefile</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E8%A7%84%E5%88%99"><span class="nav-text">基本规则</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Git"><span class="nav-text">Git</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#shell%E8%84%9A%E6%9C%AC%E7%BC%96%E7%A8%8B"><span class="nav-text">shell脚本编程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%84%9A%E6%9C%AC%E7%BB%93%E6%9E%84"><span class="nav-text">脚本结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B6%E5%88%A4%E6%96%AD-1"><span class="nav-text">条件判断</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BE%AA%E7%8E%AF"><span class="nav-text">循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%97%E6%9C%AF%E8%BF%90%E7%AE%97"><span class="nav-text">算术运算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E8%BF%90%E7%AE%97"><span class="nav-text">函数运算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E5%AE%9A%E5%90%91"><span class="nav-text">重定向</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%A1%E9%81%93%E7%AC%A6"><span class="nav-text">管道符</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%BE%E4%B8%8A%E6%B5%8B%E8%AF%95"><span class="nav-text">课上测试</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#exam"><span class="nav-text">exam</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#extra"><span class="nav-text">extra</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%AF%E8%83%BD%E9%81%87%E5%88%B0%E7%9A%84%E7%BD%91%E7%BB%9C%E9%97%AE%E9%A2%98"><span class="nav-text">可能遇到的网络问题</span></a></li></ol></li></ol>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2026&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">Dawn</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        2 posts in total
+                    </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.5</a></span>
+        </div>
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+            
+                
+
+                    
+                        <script data-swup-reload-script>
+  (function() {
+    var LIGHT_PATH = '/images/light.jpg';
+    var DARK_PATH  = '/images/dark.jpg';
+
+    function checkAndSwitch() {
+      var isDark = document.documentElement.classList.contains('dark');
+      
+      // 【修复点】改用 if-else 避免 YAML 解析冒号报错
+      var targetSrc;
+      if (isDark) {
+        targetSrc = DARK_PATH;
+      } else {
+        targetSrc = LIGHT_PATH;
+      }
+
+      var avatars = document.querySelectorAll('.avatar img, .side-tools-avatar img, .navbar-logo img');
+
+      avatars.forEach(function(img) {
+        if (img.getAttribute('src') !== targetSrc) {
+          img.src = targetSrc;
+          img.setAttribute('data-src', targetSrc);
+          img.classList.add('lazyloaded');
+        }
+      });
+    }
+
+    // 1. 初始化
+    checkAndSwitch();
+    window.addEventListener('load', checkAndSwitch);
+
+    // 2. 监听 class 变化 (对应 swup-enabled dark/light)
+    var observer = new MutationObserver(checkAndSwitch);
+    observer.observe(document.documentElement, { 
+      attributes: true, 
+      attributeFilter: ['class'] 
+    });
+
+    // 3. 兼容 Pjax/Swup
+    if (window.swup) {
+      try {
+        // 兼容不同版本的事件写法
+        var handler = window.swup.hooks ? window.swup.hooks : window.swup;
+        var eventName = window.swup.hooks ? 'content:replace' : 'contentReplaced';
+        if (handler.on) handler.on(eventName, checkAndSwitch);
+      } catch (e) {}
+    }
+  })();
+</script>
+
+                    
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
+</div>
+
+	
+
+</main>
+
+
+
+<script src="/js/build/libs/Swup.min.js"></script>
+
+<script src="/js/build/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/build/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+	
+<script src="/js/build/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/build/utils.js" type="module"></script>
+
+<script src="/js/build/main.js" type="module"></script>
+
+<script src="/js/build/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/build/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/build/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/build/layouts/categoryList.js" type="module"></script>
+
+
+
+
+
+    
+<script src="/js/build/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/tools/runtime.js"></script>
+
+    
+<script src="/js/build/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/build/libs/Typed.min.js"></script>
+
+  
+<script src="/js/build/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+
+
+    
+<script src="/js/build/libs/anime.min.js"></script>
+
+
+
+
+
+    
+<script src="/js/build/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+<script src="/js/build/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+
+	
+</body>
+
+</html>
