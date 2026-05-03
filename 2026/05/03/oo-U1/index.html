@@ -123,7 +123,7 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="https://dawnyth.github.io/404.html"/>
+    <link rel="canonical" href="https://dawnyth.github.io/2026/05/03/oo-u1/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
@@ -132,13 +132,15 @@
     
         
         <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Page Not Found">
-<meta property="og:url" content="https://dawnyth.github.io/404.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BUAA-OO-U1">
+<meta property="og:url" content="https://dawnyth.github.io/2026/05/03/oo-U1/index.html">
 <meta property="og:site_name" content="dawn">
 <meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://dawnyth.github.io/images/redefine-og.webp">
+<meta property="article:published_time" content="2026-05-03T03:32:52.213Z">
+<meta property="article:modified_time" content="2026-05-03T03:57:58.324Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://dawnyth.github.io/images/redefine-og.webp">
@@ -153,7 +155,7 @@
     
     <title>
         
-            Page Not Found | Dawn&#39;s world
+            BUAA-OO-U1 | Dawn&#39;s world
         
     </title>
 
@@ -386,15 +388,264 @@
 			
 
 			<div class="main-content">
-				<div class="nf-container">
-    <div class="nf-text">
-        <h1>404<br>Page Not Found</h1>
-    </div>
-    <div class="nf-button">
-        <a href="/" class="button large center"><i class="fa-regular fa-house"></i> Go Back Home</a>
-    </div>
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">BUAA-OO-U1</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/images/light.jpg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">Dawn</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2026-05-03 11:32:52</span>
+        <span class="mobile">2026-05-03 11:32:52</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2026-05-03 11:57:58</span>
+            <span class="mobile">2026-05-03 11:57:58</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
 </div>
 
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<p>随橙想呢，本人在U1结束之后才弄懂U1在做什么……</p>
+<h1 id="自我点评"><a href="#自我点评" class="headerlink" title="自我点评"></a>自我点评</h1><p>扪心自问本人的架构非常差劲，解析和输出耦合在一起，导致低内聚高耦合、超级巨类、重复计算等问题。类图和具体迭代过程将在下一板块展开，此处仅介绍最终设计中每个类的设计目的。</p>
+<ul>
+<li><code>MainClass</code> ：进入程序，处理输入输出逻辑</li>
+<li><code>Parser</code> ：语法分析，实现递归下降</li>
+<li><code>Lexer</code> ： 词法分析，实现读入和跳过</li>
+<li><code>Expr</code> ： 存储、化简项和表达式</li>
+<li><code>ExprOps</code> ： 因为checkstyle原因不能超出500行所以分出的方法类</li>
+<li><code>ExprPrinter</code> ： 结果输出逻辑 </li>
+<li><code>Variable</code> ： 枚举类型，处理多变量</li>
+<li><code>Factor</code> ： 接口，统一管理Factor的求导、化简行为</li>
+<li><code>DerivativeFactor</code> ： 管理求导因子</li>
+<li><code>ExpFactor</code> ： 管理指数函数因子</li>
+<li><code>ExprFactor</code> ： 管理表达式因子</li>
+<li><code>FunctionCallFactor</code> ： 管理自定义函数因子</li>
+<li><code>NumberFactor</code> ： 管理数字因子</li>
+<li><code>PowerFactor</code> ： 管理幂函数因子</li>
+<li><code>SeleFactor</code> ： 管理选择表达式因子</li>
+<li><code>VariableFactor</code> ： 管理xy变量</li>
+<li><code>FunctionDef</code> ： 处理函数调用操作</li>
+<li><code>SimpleFucntionDef</code> ： 普通函数定义</li>
+<li><code>RecursiveFuntionDef</code> ： 递归函数定义</li>
+<li><code>RecurrenceTemplate</code> ： 递归函数存储化简</li>
+<li><code>NormalizeContext</code> ： 化简操作</li>
+<li><code>MonomialKey</code> ： 管理项</li>
+</ul>
+<h1 id="架构设计体验"><a href="#架构设计体验" class="headerlink" title="架构设计体验"></a>架构设计体验</h1><p>逐步成型？逐步毁灭！</p>
+<h2 id="第一次作业"><a href="#第一次作业" class="headerlink" title="第一次作业"></a>第一次作业</h2><p>前文已经提到本人此次作业的架构非常差劲，而差劲的根源从第一次作业就埋下了。</p>
+<p>在第一次作业中，本人未能深入理解AST树和真正的代码实现的关系、轻率地使用AST树的架构给我的类进行区分。所以本人并没有使用 <code>Mono</code> 类和 <code>Poly</code> 类，而是将它们全部用 <code>Expr</code> 存储。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/dawnyth/bed/img/hw1.png"
+                      alt="图片8"
+                ></p>
+<p>因为第一次作业比较简单，所以这样的架构也没出大问题。</p>
+<h2 id="第二次作业"><a href="#第二次作业" class="headerlink" title="第二次作业"></a>第二次作业</h2><p>第二次作业在第一次的基础上增加了自定义函数、指数函数因子和选择式因子。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/dawnyth/bed/img/hw2.png"
+                      alt="图片7"
+                ></p>
+<p>在第一次作业本人曾用HashMap存储项，将因子的指数作为键、系数作为值。增加了指数函数后这种方法随即失效，所以本人增加了一个类来管理项，即 <code>TermKey</code> 。 <code>TermKey</code> 中有两个成员变量，分别用BigInteger存储 <code>x</code> 的指数部分和Expr存储exp内部因子，再将 <code>TermKey</code> 作为键、系数作为值来存储项。</p>
+<p>其实这个时候本人就开始困惑：我的Factor并没有参与数据的管理，所有的数据都存在TermKey和Expr里，那Factor存在的意义是什么？我的Term似乎没有任何作用，这样真的对吗？但当时本人并没有细究，这种不求甚解的态度再次为第三次作业埋下败笔。</p>
+<h2 id="第三次作业"><a href="#第三次作业" class="headerlink" title="第三次作业"></a>第三次作业</h2><p>第三次作业增加了新的自变量、自定义递推函数和求导运算。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/dawnyth/bed/img/hw3.png"
+                      alt="图片6"
+                ></p>
+<p>看得出，这设计有种为管理而管理，为分层而分层的意味。复杂而冗余的设计让人无法debug，所以最后强测被肘进了o房。</p>
+<p>值得一提的是在实现链式法则时本人override了一堆Factor类的方法，竟然让xxxFactor的设计显得不那么冗余，甚至还能自圆其说xxxFactor存在的意义是为了分发求导操作。</p>
+<h2 id="新的迭代情景"><a href="#新的迭代情景" class="headerlink" title="新的迭代情景"></a>新的迭代情景</h2><p>设想若增加三角函数，在现有架构下大致需要修改：</p>
+<ol>
+<li>增加 <code>SinFactor</code> 、 <code>CosFactor</code> 类</li>
+<li>在 <code>MonomialKey</code> 中增加相应存储、比较逻辑</li>
+<li>在 <code>Parser</code> 中增加相应匹配逻辑</li>
+<li>在 <code>Expr</code> 中加入相应 <code>toString</code> 逻辑</li>
+</ol>
+<p>但是现有架构太过庞杂，极其容易失手，事实也证明确实失手了。仔细分析后发现之前的数据<strong>存储</strong>逻辑其实应该变成数据<strong>处理</strong>逻辑。因此所有 <code>xxxFactor</code> 类都是不必需的，上述类图中绿色的部分都可以删掉，所以最终得出的架构应该长这样。</p>
+<h2 id="重构，在单元结束之后"><a href="#重构，在单元结束之后" class="headerlink" title="重构，在单元结束之后"></a>重构，在单元结束之后</h2><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/dawnyth/bed/img/hw3_reconstruct.png"
+                      alt="图片9"
+                ></p>
+<p>这个设计与我之前设计的区别在于：</p>
+<ol>
+<li>把原来由 <code>Factor</code> 管理的数据统一交给 <code>TermKey</code> ，即 <code>TermKey</code> 中管理自变量的指数和exp内部因子。</li>
+<li>把原来由 <code>Factor</code> 进行的操作统一交给 <code>Poly</code> ，即语法树的建立体现在 <code>Poly</code> 的成员方法中。</li>
+<li>对函数的处理在 <code>MainClass</code> 读入时就完成，不建立多余的类。</li>
+</ol>
+<p>这样的层次结构更清晰，更利于测试和维护。</p>
+<h1 id="自己的bug"><a href="#自己的bug" class="headerlink" title="自己的bug"></a>自己的bug</h1><h2 id="第二次作业-1"><a href="#第二次作业-1" class="headerlink" title="第二次作业"></a>第二次作业</h2><h3 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h3><p>第二次作业的两个bug都出在对<strong>选择式因子</strong>的处理上。</p>
+<ol>
+<li>对Factor没有实现统一管理，在bug层面体现在会将 <code>(x-x)</code> 和 <code>0</code> 判成不等。</li>
+<li>先解析四个因子再进行判断选择，会造成TLE。</li>
+</ol>
+<p>ev(G)&#x3D;6</p>
+<h3 id="修复"><a href="#修复" class="headerlink" title="修复"></a>修复</h3><ol>
+<li>弃用Java自带的equals方法，改为判断 <code>FactorA-FactorB</code> 是否 <code>equals.zero</code></li>
+<li>增加skip方法</li>
+</ol>
+<h2 id="第三次作业-1"><a href="#第三次作业-1" class="headerlink" title="第三次作业"></a>第三次作业</h2><h3 id="描述-1"><a href="#描述-1" class="headerlink" title="描述"></a>描述</h3><p>第三次WA了两个点，T了一个点。总结起来是两个问题。</p>
+<ol>
+<li><strong>函数调用</strong>的缓存没做好。最开始的逻辑是打印时调用 <code>toString</code> ，这部分没做好缓存导致同一 <code>Expr</code> 被反复计算，造成TLE。</li>
+<li><strong>函数定义</strong>时先读入 <code>f{n}(x)</code> 时先神秘读入一个符号，再读入表达式。此时如果表达式第一个符号是负号就会出错。ev(G)&#x3D;4</li>
+</ol>
+<h3 id="修复-1"><a href="#修复-1" class="headerlink" title="修复"></a>修复</h3><ol>
+<li>在Expr中加入一个 <code>String</code> 类型的成员变量 <code>cachedToString</code> 用来缓存表达式，在 <code>toString</code> 时先查有无缓存，无缓存则计算后存入缓存，有缓存则直接使用。</li>
+<li>把读入符号那步删掉就好了。</li>
+</ol>
+<h2 id="能否通过更好的设计避免这样的问题？"><a href="#能否通过更好的设计避免这样的问题？" class="headerlink" title="能否通过更好的设计避免这样的问题？"></a>能否通过更好的设计避免这样的问题？</h2><p>假如本人按照上述架构（重构版）进行设计，应该不会出现第二次作业的第一个bug和第三次作业的第二个bug。在学习别人代码后，本人发现有一种很巧妙的思想，用到我的架构里来大概是在 <code>Mono</code> 和 <code>Poly</code> 之间加一个 <code>LazyPoly</code> ，只标记不运算。在 <code>Poly</code> 中加入一个缓存层，被算过的表达式不重复计算。这样可以解决第三次作业的第一个bug。</p>
+<h1 id="部分思考题"><a href="#部分思考题" class="headerlink" title="部分思考题"></a>部分思考题</h1><h3 id="测试策略及有效性"><a href="#测试策略及有效性" class="headerlink" title="测试策略及有效性"></a>测试策略及有效性</h3><p>显然本人的测试做的不到位，否则不会出现如此低级的bug。</p>
+<p>本人的测试方法是使用评测机测试代码，但我的数据生成器写得很弱，覆盖的范围不够广，以至于没有测出自己的问题。加上之前也不懂得根据度量结果设计数据生成的方式和规模，所以盲目相信评测机，没有对自己的代码进行足够的静态查错，最终出现了匪夷所思的bug。</p>
+<p>本人的数据生成是根据文法做的，会分别生成因子，用因子组合成项，用项组合成表达式，但函数尤其是递归函数生成的不好。比如我第三次作业的bug出在 <code>f{n}(x)</code> 这一项的第三部分，而本人的数据生成器第三部分恰好之会生成0或1个项，所以完完全全没测到这个bug。</p>
+<h3 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h3><p>本人在HW2的第一版中采取自认为相当激进的化简策略。当时使用了两种策略，一是遍历0到200的质数，尝试提取gcd；二是根据单项式前的系数部分提取公因式。比较两个策略得到的化简结果长度，输出较短的一个。但是这种化简结果在第二周周二晚上被测出有奇妙bug，当时我来不及改了，就只保留了第二部分。</p>
+<p>HW3并没有进一步优化。</p>
+<p>本人的化简在一定程度上保持了简洁，但在正确性上有所欠缺。简洁是因为我把所有化简逻辑放在一个类中，正确性欠缺是因为我代码能力暂时不支持我完成复杂逻辑操作。</p>
+<p>思来想去感觉还是本人动手之前并没有明确自己想实现的功能，在优化过程中迷失了方向。在下一次作业中力求明确每个方法的功能与接口，正确写出真正简洁正确的代码。</p>
+<h3 id="大模型"><a href="#大模型" class="headerlink" title="大模型"></a>大模型</h3><ul>
+<li>可以说本人大部分的代码是ai写的。本人的作用大概是给prompt，指明每个类需要储存什么数据、实现什么功能。性能优化同样是本人给优化方案，ai实现。</li>
+<li>用ai搭建了评测机，但ai只负责代码实现，本人来提供数据生成逻辑和指定输入输出接口</li>
+<li>大模型在代码层面的完成效果本人认为不好。ai生成的代码码量很大，review起来工作量也大。而且ai生成的代码往往会在很细微的地方出问题，当然也可能是因为本人提示词写得不好。</li>
+<li>因为本人已经删除当时下载的文件，没法对应到具体同学。ai写的代码一般非常严谨，即对输入合法性非常敏感。考虑到有佬会对输入合法性作出限制，所以如果测试中看到某位同学的代码对错误输入敏感且文件大小很大，本人一般会怀疑这位同学的代码出自ai之手。</li>
+</ul>
+<h3 id="心得体会"><a href="#心得体会" class="headerlink" title="心得体会"></a>心得体会</h3><p>因为HW3出了两个严重的bug被肘进o房，我曾一度无法面对关于OO的所有。修复阶段增加一些逻辑就能解决的bug也让我困惑自己的架构到底是好是坏。但多亏怕什么来什么盼什么没什么，在充分学习了别人的架构后我终于认识到自己的问题所在。</p>
+<p>一个好的架构应该是类各得其所，方法各司其职。这样的设计有助于程序员进行操作、修改、扩展，也能保持开发过程中心情的愉悦。</p>
+<p>我最大的错误应该是在HW1的时候没有花心思理解区分语法层面和操作层面对字符串处理的区别，没有明确自己的处理逻辑。所以一头雾水地开始、写出了让人啼笑皆非的bug、最后在强测结果出来时悔不当初。</p>
+<h3 id="未来规划"><a href="#未来规划" class="headerlink" title="未来规划"></a>未来规划</h3><p>总结我失败的第一单元，我的评价是尽量想清楚每个类的作用再开始写代码，如果最初没能做到，该重构也不要犹豫。</p>
+
+		</div>
+
+		
+
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2026/03/22/os-lab0/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">BUAA-OS-lab0</span>
+						<span class="post-nav-item">Next posts</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        Comments
+    </div>
+    
+
+        
+            
+    <div id="waline"></div>
+    <script type="module" data-swup-reload-script>
+      import { init } from '/js/libs/waline.mjs';
+
+      function loadWaline() {
+        init({
+          el: '#waline',
+          serverURL: 'https://example.example.com',
+          dark: 'body[class~="dark-mode"]',
+          reaction: false,
+          requiredMeta: ['nick', 'mail'],
+          emoji: [],
+                    lang: 'zh-CN',
+        });
+      }
+
+      if (typeof swup !== 'undefined') {
+        loadWaline();
+      } else {
+        window.addEventListener('DOMContentLoaded', loadWaline);
+      }
+    </script>
+
+
+
+        
+    
+</div>
+
+		</div>
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">On this page</div>
+		<div class="page-title">BUAA-OO-U1</div>
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%87%AA%E6%88%91%E7%82%B9%E8%AF%84"><span class="nav-text">自我点评</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%BD%93%E9%AA%8C"><span class="nav-text">架构设计体验</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E6%AC%A1%E4%BD%9C%E4%B8%9A"><span class="nav-text">第一次作业</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E6%AC%A1%E4%BD%9C%E4%B8%9A"><span class="nav-text">第二次作业</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E6%AC%A1%E4%BD%9C%E4%B8%9A"><span class="nav-text">第三次作业</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B0%E7%9A%84%E8%BF%AD%E4%BB%A3%E6%83%85%E6%99%AF"><span class="nav-text">新的迭代情景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8D%E6%9E%84%EF%BC%8C%E5%9C%A8%E5%8D%95%E5%85%83%E7%BB%93%E6%9D%9F%E4%B9%8B%E5%90%8E"><span class="nav-text">重构，在单元结束之后</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%87%AA%E5%B7%B1%E7%9A%84bug"><span class="nav-text">自己的bug</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E6%AC%A1%E4%BD%9C%E4%B8%9A-1"><span class="nav-text">第二次作业</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%8F%E8%BF%B0"><span class="nav-text">描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E5%A4%8D"><span class="nav-text">修复</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E6%AC%A1%E4%BD%9C%E4%B8%9A-1"><span class="nav-text">第三次作业</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%8F%E8%BF%B0-1"><span class="nav-text">描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E5%A4%8D-1"><span class="nav-text">修复</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%BD%E5%90%A6%E9%80%9A%E8%BF%87%E6%9B%B4%E5%A5%BD%E7%9A%84%E8%AE%BE%E8%AE%A1%E9%81%BF%E5%85%8D%E8%BF%99%E6%A0%B7%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%9F"><span class="nav-text">能否通过更好的设计避免这样的问题？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%83%A8%E5%88%86%E6%80%9D%E8%80%83%E9%A2%98"><span class="nav-text">部分思考题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E7%AD%96%E7%95%A5%E5%8F%8A%E6%9C%89%E6%95%88%E6%80%A7"><span class="nav-text">测试策略及有效性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E5%8C%96"><span class="nav-text">优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%A7%E6%A8%A1%E5%9E%8B"><span class="nav-text">大模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BF%83%E5%BE%97%E4%BD%93%E4%BC%9A"><span class="nav-text">心得体会</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AA%E6%9D%A5%E8%A7%84%E5%88%92"><span class="nav-text">未来规划</span></a></li></ol></li></ol>
+
+	</div>
+</div>
+	</div>
+	
+</div>
 			</div>
 
 			
@@ -529,6 +780,26 @@
 	</div>
 
 	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
+	
 
 	<div class="right-side-tools-container">
 		<div class="side-tools-container">
@@ -610,6 +881,7 @@
         containers: ["#swup"],
     });
 </script>
+
 
 
 
