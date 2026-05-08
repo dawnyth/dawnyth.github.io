@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="Dawn">
+    
+    <!-- Completely eliminate flash of wrong theme -->
+    <script>
+        (function() {
+            const THEME_KEY = "REDEFINE-THEME-STATUS";
+            const DARK = "dark", LIGHT = "light";
+            
+            // Get preferred theme
+            function getTheme() {
+                try {
+                    const saved = localStorage.getItem(THEME_KEY);
+                    if (saved) {
+                        const { isDark } = JSON.parse(saved);
+                        return isDark ? DARK : LIGHT;
+                    }
+                } catch (e) {}
+                
+                return matchMedia("(prefers-color-scheme: dark)").matches ? DARK : LIGHT;
+            }
+            
+            // Apply theme to document
+            function applyTheme(theme) {
+                const isDark = theme === DARK;
+                const root = document.documentElement;
+                
+                // Set data attribute for CSS variables
+                root.setAttribute("data-theme", theme);
+                
+                // Set classes for compatibility
+                root.classList.add(theme);
+                root.classList.remove(isDark ? LIGHT : DARK);
+                root.style.colorScheme = theme;
+            }
+            
+            // Initial application
+            const theme = getTheme();
+            applyTheme(theme);
+            
+            // Listen for system preference changes
+            matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches }) => {
+                // Only update if using system preference (no localStorage entry)
+                if (!localStorage.getItem(THEME_KEY)) {
+                    applyTheme(matches ? DARK : LIGHT);
+                }
+            });
+            
+            // Set body classes once DOM is ready
+            if (document.readyState !== "loading") {
+                document.body.classList.add(theme + "-mode");
+            } else {
+                document.addEventListener("DOMContentLoaded", () => {
+                    document.body.classList.add(theme + "-mode");
+                    document.body.classList.remove((theme === DARK ? LIGHT : DARK) + "-mode");
+                });
+            }
+        })();
+    </script>
+    
+    <!-- Critical CSS to prevent flash -->
+    <style>
+        :root[data-theme="dark"] {
+            --background-color: #202124;
+            --background-color-transparent: rgba(32, 33, 36, 0.6);
+            --second-background-color: #2d2e32;
+            --third-background-color: #34353a;
+            --third-background-color-transparent: rgba(32, 33, 36, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #ffffff;
+            --second-text-color: #eeeeee;
+            --third-text-color: #bebec6;
+            --fourth-text-color: #999999;
+            --default-text-color: #bebec6;
+            --invert-text-color: #373D3F;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(255, 255, 255, 0.08);
+            --shadow-color-2: rgba(255, 255, 255, 0.05);
+        }
+        
+        :root[data-theme="light"] {
+            --background-color: #fff;
+            --background-color-transparent: rgba(255, 255, 255, 0.6);
+            --second-background-color: #f8f8f8;
+            --third-background-color: #f2f2f2;
+            --third-background-color-transparent: rgba(241, 241, 241, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #16171a;
+            --second-text-color: #2f3037;
+            --third-text-color: #5e5e5e;
+            --fourth-text-color: #eeeeee;
+            --default-text-color: #373D3F;
+            --invert-text-color: #bebec6;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(0, 0, 0, 0.08);
+            --shadow-color-2: rgba(0, 0, 0, 0.05);
+        }
+        
+        body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+        
+        /* Apply body classes as soon as DOM is ready */
+        :root[data-theme="dark"] body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+    </style>
+    
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://dawnyth.github.io/2026/05/03/os-lab1/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+    
+        
+        <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BUAA-OS-lab1">
+<meta property="og:url" content="https://dawnyth.github.io/2026/05/03/os-lab1/index.html">
+<meta property="og:site_name" content="dawn">
+<meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://dawnyth.github.io/images/redefine-og.webp">
+<meta property="article:published_time" content="2026-05-03T04:07:00.618Z">
+<meta property="article:modified_time" content="2026-05-06T00:45:18.745Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://dawnyth.github.io/images/redefine-og.webp">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/light.jpg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/light.jpg">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/light.jpg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            BUAA-OS-lab1 | Dawn&#39;s world
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+        
+            
+                
+                    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500&display=swap" rel="stylesheet">
+                
+    
+            
+                
+                    <style>#subtitle { font-family: "Noto Serif SC", serif !important; font-weight: 500; letter-spacing: 2px; }</style>
+                
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/css/build/tailwind.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+    
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@200..900&display=swap" rel="stylesheet">
+    
+    
+    
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"dawnyth.github.io","root":"/","language":"en"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.0rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":false,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":false,"default":"cc_by_nc_sa","show_title":false,"show_author":false,"show_date":true,"show_updated":true,"show_link":false,"show_license":true},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":true,"family":"Noto Serif SC","url":"https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@200..900&display=swap"},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"side_tools":{"gear_rotation":true,"auto_expand":false},"open_graph":{"enable":true,"image":"/images/redefine-og.webp","description":"Hexo Theme Redefine, Redefine Your Hexo Journey."},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/dawn.jpg","dark":"/images/night.jpg"},"title":"Welcome","subtitle":{"text":["My youth in my nineteen was spent crying on the keyboard"],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":0.1,"backing_speed":0,"starting_delay":0,"backing_delay":0,"loop":false,"smart_backspace":false},"text_color":{"light":"#333","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"11.4.1"}},"version":"2.8.5","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Friends":{"path":"/friends/","icon":"fa-solid fa-link"}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                Dawn&#39;s world
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/friends/"
+                                        >
+                                    <i class="fa-solid fa-link fa-fw"></i>
+                                    FRIENDS
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/friends/"
+                        >
+                            <span>
+                                FRIENDS
+                            </span>
+                            
+                                <i class="fa-solid fa-link fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+
+            
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">0</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">0</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">5</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">BUAA-OS-lab1</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/images/light.jpg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">Dawn</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2026-05-03 12:07</span>
+        <span class="mobile">2026-05-03 12:07</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2026-05-06 08:45:18</span>
+            <span class="mobile">2026-05-06 08:45:18</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<p>这一个lab的标题是内核、启动和printf，看得出相当的大杂烩。</p>
+<h1 id="内核和启动"><a href="#内核和启动" class="headerlink" title="内核和启动"></a>内核和启动</h1><p>这个lab要初步实现一个比较简易的操作系统。</p>
+<h2 id="Makefile"><a href="#Makefile" class="headerlink" title="Makefile"></a>Makefile</h2><p>课程组给出了数量可观的代码，可以从顶层 <code>Makefile</code> 入手阅读。 <code>Makefile</code> 的作用在于方便增量编译和管理依赖关系。</p>
+<p>55行前给出了一堆宏，通过这些宏可以实现配置QEMU模拟器参数和根据实验进度调整编译配置。从lab2到视角回看需要注意以下几个宏：</p>
+<ul>
+<li><code>link_script := kernel.lds</code> : 指定链接脚本，决定内核代码在内存中的具体布局</li>
+<li><code>modules := lib init kern</code> : 源码目录列表，意味是内核的核心代码分布在 <code>lib</code>（库函数）、<code>init</code>（初始化代码）和 <code>kern</code>（内核核心逻辑）这三个子目录中</li>
+<li><code>targets := $(mos_elf)</code> : 定义这次编译任务最终要生成的目标文件</li>
+<li><code>objects := $(addsuffix /*.o, $(modules)) $(addsuffix /*.x, $(user_modules))</code> : 汇合已经编译好的二进制目标文件（<code>.o</code> 或 <code>.x</code>）</li>
+<li><code>.PHONY</code> 表明列在后面的东西不受make工具关于时间戳的约束，保证调用时被执行</li>
+</ul>
+<p>为什么是从lab2视角呢，因为之前太懒了不想写博客拖到五一才动手💤。</p>
+<p>55行后给出了具体的编译规则，大体可以分为递归编译 <code>modules</code> 列表里的文件、当所有子模块都编译完后调用链接器 <code>$(LD)</code> 和运行调试接口三部分。</p>
+<p>放一张chatgpt生成的依赖关系图，仅供参考。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/dawnyth/bed/img/mos_makefile_dependency.png"
+                      alt="mos_makefile_dependency"
+                ></p>
+<h2 id="文件目录"><a href="#文件目录" class="headerlink" title="文件目录"></a>文件目录</h2><ul>
+<li><code>init</code> 初始化内核，其中：<ul>
+<li><code>start.S</code> 初始化CPU和栈指针，跳转到 <code>mips_init()</code> 函数</li>
+<li><code>init.c</code> 实现 <code>mips_init()</code> 函数，调用内核中各模块的初始化函数</li>
+</ul>
+</li>
+<li><code>include</code> 存放系统头文件</li>
+<li><code>lib</code> 存放常用库函数</li>
+<li><code>kern</code> 存放内核主体代码</li>
+<li><code>tests</code> 存放测试代码</li>
+</ul>
+<h2 id="ELF"><a href="#ELF" class="headerlink" title="ELF"></a>ELF</h2><p>ELF文件的解析是一个考点，换言之要知道相关结构体如何操作。这部分的内容都在 <code>tools/elf/</code> 文件夹中，相关结构体定义在其中 <code>elf.h</code> 文件里。</p>
+<p><code>elf.h</code> 文件31～52行规定了一些字段的大小，接着58～119行定义 <code>Elf32_Ehdr</code> 用于存储ELF文件头， <code>Elf32_Shdr</code>  用于存储段头，<code>Elf32_Phdr</code> 用于存储节头，定义了魔数验证相关字段。</p>
+<div class="code-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifndef</span> _ELF_H</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> _ELF_H</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdint.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* * 来自 GNU C 库的 ELF 定义文件。</span></span><br><span class="line"><span class="comment"> * 我们为实验简化了此文件，移除了我们不关心的 ELF64、结构体和枚举定义。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* 16 位数量类型 */</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">uint16_t</span> Elf32_Half;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 有符号和无符号的 32 位数量类型 */</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">uint32_t</span> Elf32_Word;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">int32_t</span> Elf32_Sword;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 有符号和无符号的 64 位数量类型 */</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">uint64_t</span> Elf32_Xword;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">int64_t</span> Elf32_Sxword;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 地址类型 */</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">uint32_t</span> Elf32_Addr;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 文件偏移类型 */</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">uint32_t</span> Elf32_Off;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 节索引（Section indices）类型，为 16 位数量 */</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">uint16_t</span> Elf32_Section;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 符号索引类型 */</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">uint32_t</span> Elf32_Symndx;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 实验 1 关键代码 &quot;readelf-struct-def&quot; */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* ELF 文件头。它出现在每个 ELF 文件的开头。 */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> EI_NIDENT (16)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">char</span> e_ident[EI_NIDENT]; <span class="comment">/* 魔数和其他信息（如位数、大小端等） */</span></span><br><span class="line">    Elf32_Half e_type;        <span class="comment">/* 目标文件类型（如可执行文件、重定位文件等） */</span></span><br><span class="line">    Elf32_Half e_machine;     <span class="comment">/* 目标架构（如 MIPS, x86 等） */</span></span><br><span class="line">    Elf32_Word e_version;     <span class="comment">/* 目标文件版本 */</span></span><br><span class="line">    Elf32_Addr e_entry;       <span class="comment">/* 程序入口点的虚拟地址 */</span></span><br><span class="line">    Elf32_Off e_phoff;        <span class="comment">/* 程序头表在文件中的偏移量 */</span></span><br><span class="line">    Elf32_Off e_shoff;        <span class="comment">/* 节头表在文件中的偏移量 */</span></span><br><span class="line">    Elf32_Word e_flags;       <span class="comment">/* 处理器特定的标志 */</span></span><br><span class="line">    Elf32_Half e_ehsize;      <span class="comment">/* ELF 文件头自身的大小（以字节为单位） */</span></span><br><span class="line">    Elf32_Half e_phentsize;   <span class="comment">/* 程序头表中单个条目（Entry）的大小 */</span></span><br><span class="line">    Elf32_Half e_phnum;       <span class="comment">/* 程序头表中条目的数量 */</span></span><br><span class="line">    Elf32_Half e_shentsize;   <span class="comment">/* 节头表中单个条目（Entry）的大小 */</span></span><br><span class="line">    Elf32_Half e_shnum;       <span class="comment">/* 节头表中条目的数量 */</span></span><br><span class="line">    Elf32_Half e_shstrndx;    <span class="comment">/* 节头字符串表在节头表中的索引 */</span></span><br><span class="line">&#125; Elf32_Ehdr;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* * e_ident 数组中的字段。</span></span><br><span class="line"><span class="comment"> * EI_* 宏是该数组的索引。</span></span><br><span class="line"><span class="comment"> * 每个 EI_* 宏下方的宏是该字节可能具有的值。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">   </span><br><span class="line"><span class="meta">#<span class="keyword">define</span> EI_MAG0 0    <span class="comment">/* 文件标识第 0 字节索引 */</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> ELFMAG0 0x7f <span class="comment">/* 魔数第 0 字节 */</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> EI_MAG1 1    <span class="comment">/* 文件标识第 1 字节索引 */</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> ELFMAG1 <span class="string">&#x27;E&#x27;</span>  <span class="comment">/* 魔数第 1 字节 */</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> EI_MAG2 2    <span class="comment">/* 文件标识第 2 字节索引 */</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> ELFMAG2 <span class="string">&#x27;L&#x27;</span>  <span class="comment">/* 魔数第 2 字节 */</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> EI_MAG3 3    <span class="comment">/* 文件标识第 3 字节索引 */</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> ELFMAG3 <span class="string">&#x27;F&#x27;</span>  <span class="comment">/* 魔数第 3 字节 */</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* 节（Section）头。 */</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">    Elf32_Word sh_name;      <span class="comment">/* 节名称（字符串表中的索引） */</span></span><br><span class="line">    Elf32_Word sh_type;      <span class="comment">/* 节类型（如代码段、数据段、符号表等） */</span></span><br><span class="line">    Elf32_Word sh_flags;     <span class="comment">/* 节标志（如可写、分配、可执行等） */</span></span><br><span class="line">    Elf32_Addr sh_addr;      <span class="comment">/* 节在内存中的虚拟地址 */</span></span><br><span class="line">    Elf32_Off sh_offset;     <span class="comment">/* 节在文件中的偏移量 */</span></span><br><span class="line">    Elf32_Word sh_size;      <span class="comment">/* 节的大小（以字节为单位） */</span></span><br><span class="line">    Elf32_Word sh_link;      <span class="comment">/* 关联到其他节的索引 */</span></span><br><span class="line">    Elf32_Word sh_info;      <span class="comment">/* 额外的节信息 */</span></span><br><span class="line">    Elf32_Word sh_addralign; <span class="comment">/* 节的地址对齐要求 */</span></span><br><span class="line">    Elf32_Word sh_entsize;   <span class="comment">/* 如果节包含固定大小的条目，则为每个条目的大小 */</span></span><br><span class="line">&#125; Elf32_Shdr;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 程序（Program）段头。 */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">    Elf32_Word p_type;   <span class="comment">/* 段类型（如可加载段、动态链接信息等） */</span></span><br><span class="line">    Elf32_Off p_offset;  <span class="comment">/* 该段在文件中的偏移量 */</span></span><br><span class="line">    Elf32_Addr p_vaddr;  <span class="comment">/* 该段在内存中的虚拟地址 */</span></span><br><span class="line">    Elf32_Addr p_paddr;  <span class="comment">/* 该段在内存中的物理地址（通常与虚拟地址相同） */</span></span><br><span class="line">    Elf32_Word p_filesz; <span class="comment">/* 该段在文件中的大小 */</span></span><br><span class="line">    Elf32_Word p_memsz;  <span class="comment">/* 该段在内存中的大小（可能大于文件大小，如 BSS 段） */</span></span><br><span class="line">    Elf32_Word p_flags;  <span class="comment">/* 段标志（读、写、执行） */</span></span><br><span class="line">    Elf32_Word p_align;  <span class="comment">/* 段在内存和文件中的对齐要求 */</span></span><br><span class="line">&#125; Elf32_Phdr;</span><br><span class="line"><span class="comment">/* 关键代码 &quot;readelf-struct-def&quot; 结束 */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* p_type（段类型）的合法值。 */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PT_NULL 0        <span class="comment">/* 程序头表条目未使用 */</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PT_LOAD 1        <span class="comment">/* 可加载的程序段 */</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PT_DYNAMIC 2     <span class="comment">/* 动态链接信息 */</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PT_INTERP 3      <span class="comment">/* 程序解释器（路径名） */</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PT_NOTE 4        <span class="comment">/* 辅助信息 */</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PT_SHLIB 5       <span class="comment">/* 保留 */</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PT_PHDR 6        <span class="comment">/* 程序头表自身在该段中的条目 */</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PT_NUM 7         <span class="comment">/* 已定义类型的数量 */</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PT_LOOS 0x60000000   <span class="comment">/* 操作系统特定范围的起点 */</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PT_HIOS 0x6fffffff   <span class="comment">/* 操作系统特定范围的终点 */</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PT_LOPROC 0x70000000 <span class="comment">/* 处理器特定范围的起点 */</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PT_HIPROC 0x7fffffff <span class="comment">/* 处理器特定范围的终点 */</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* p_flags（段标志）的合法值。 */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PF_X (1 &lt;&lt; 0)          <span class="comment">/* 段可执行 */</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PF_W (1 &lt;&lt; 1)          <span class="comment">/* 段可写 */</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PF_R (1 &lt;&lt; 2)          <span class="comment">/* 段可读 */</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PF_MASKPROC 0xf0000000 <span class="comment">/* 处理器特定掩码 */</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span> <span class="comment">/* elf.h */</span></span></span><br></pre></td></tr></table></figure></div>
+
+<p>考点主要有从ELF头中找到节表头&#x2F;某节&#x2F;段表头&#x2F;某段，打印对应的字段等等。以下以26exam代码为例。</p>
+<h3 id="Exam"><a href="#Exam" class="headerlink" title="Exam"></a>Exam</h3><p>题目要求输出：</p>
+<ol>
+<li>该ELF文件总节数 ➡️ 读 <code>Elf64_Ehdr</code> 结构体</li>
+<li><code>.symtab</code> 节对应节头在节头表中下标 ➡️ 涉及字符串匹配</li>
+<li>每节名称、文件偏移 <code>sh_offset</code> 和大小 <code>sh_size</code> ➡️ 读对应的 <code>Elf64_Shdr</code> 结构体</li>
+</ol>
+<p>注意到 <code>e_shstrndx</code> 是节头字符串表在节头表中的索引，即 <code>Elf32_Shdr</code> 中的 <code>sh_name</code> 字段其实存储在 <code>Section[e_shstrndx]</code> 这一节头表对应的内存中，代码中为从 <code>shstrtab</code> 开始的一块内存。注意到 <code>shstrtab</code> 为 <code>char*</code> 类型，即以存储地址的大小为大小偏移，所以 <code>sectionName = shstrtab + sh_table[i].sh_name</code> 可以轻松得到存储节名的地址。</p>
+<p>此处涉及字符串匹配，别忘了 <code>strcmp</code> 以及 <code>string.h</code> 里的一堆函数。</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">int readelf64(const void *binary, size_t size) &#123;</span><br><span class="line">    const Elf64_Ehdr *ehdr = NULL;</span><br><span class="line">    </span><br><span class="line">		ehdr=(const Elf64_Ehdr*)binary;</span><br><span class="line">    </span><br><span class="line">    if (!is_elf_format(ehdr, size)) &#123;</span><br><span class="line">	fputs(&quot;not an elf64 file\n&quot;, stderr);</span><br><span class="line">	return 0;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    unsigned int section_count;</span><br><span class="line">    section_count=ehdr-&gt;e_shnum;</span><br><span class="line">    const Elf64_Shdr *sh_table;	 // 节头表</span><br><span class="line">    const Elf64_Shdr *shstrShdr; // 节名称字符串表的节头</span><br><span class="line">    const char *shstrtab;	 // 节名称字符串表的内容字符串</span><br><span class="line"></span><br><span class="line">    // 获取节头表地址 sh_table</span><br><span class="line">    sh_table = (const Elf64_Shdr *)((char *)binary + ehdr-&gt;e_shoff);</span><br><span class="line"></span><br><span class="line">		//获取节名称字符串表的节头 shstrShdr 与 节名称字符串表的内容字符串 shstrtab</span><br><span class="line">		shstrShdr=sh_table+ehdr-&gt;e_shstrndx;</span><br><span class="line">		shstrtab=(const char*)((char*)binary+shstrShdr-&gt;sh_offset);</span><br><span class="line"></span><br><span class="line">    const char *sectionName; // 提取节名称用的临时变量</span><br><span class="line">    int symtabIndex = -1;    // 记录符号表.symtab的节头在节头表中的索引(下标)</span><br><span class="line">    unsigned int i;</span><br><span class="line">    printf(&quot;section_count=%u\n&quot;, section_count);</span><br><span class="line"></span><br><span class="line">    // 输出每个节信息，并在遇到符号表.symtab时记录下标</span><br><span class="line">    for (i = 0; i &lt; section_count; i++) &#123;</span><br><span class="line">	sectionName = shstrtab + sh_table[i].sh_name;</span><br><span class="line"></span><br><span class="line">	int matchSymtab;</span><br><span class="line">	// 判断当前节名称是否为 &quot;.symtab&quot;，如果是则matchSymtab为非0，否则为0</span><br><span class="line">	// ----- Lab1-Exam: Your code here. (4/5) -----</span><br><span class="line">	matchSymtab=strcmp(sectionName,&quot;.symtab&quot;)==0;</span><br><span class="line">	if (matchSymtab) &#123;</span><br><span class="line">	    // 记录符号表.symtab的节头在节头表中的索引(下标)</span><br><span class="line">		symtabIndex=i;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	printf(&quot;[%d]\tname=\&quot;%s\&quot;\toffset=0x%lx\tsize=%lu\n&quot;, i, sectionName,</span><br><span class="line">	     (unsigned long)sh_table[i].sh_offset, (unsigned long)sh_table[i].sh_size);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if (symtabIndex &lt; 0) &#123;</span><br><span class="line">	fputs(&quot;No .symtab found\n&quot;, stderr);</span><br><span class="line">	return 0;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    printf(&quot;symtab_index=%d\n&quot;, symtabIndex);</span><br><span class="line"></span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="MIPS内存布局"><a href="#MIPS内存布局" class="headerlink" title="MIPS内存布局"></a>MIPS内存布局</h2><ul>
+<li>kuseg 0x0000_0000~0x8fff_ffff</li>
+<li>kseg0 0x8000_0000~0x9fff_ffff</li>
+<li>kseg1 0xa000_0000~0xbfff_ffff</li>
+<li>kseg2 0xc000_0000~0xffff_ffff</li>
+</ul>
+<p>将内核放在kseg0，bootloader在载入内核前会进行 cache 初始化工作，内核可以顺利加载。</p>
+<p>Linker Script 中记录了各个节应该如何映射到段（控制了节放置的地址），由此可以控制链接器的链接过程。</p>
+<p><code>.text</code> <code>.data</code> <code>.bss</code> 从0x8002_0000开始放置。</p>
+<p><code>modules</code> ：等待编译的源码文件夹，<code>targets</code> ：编译得到的 <code>.x</code> 和 <code>.o</code> 文件。</p>
+<p><code>_start</code> 函数：清空bss段地址里的内容，将sp指针指向 0x8040_0000，跳转到 <code>mips_init</code> 函数。</p>
+<h1 id="printk"><a href="#printk" class="headerlink" title="printk"></a>printk</h1><ul>
+<li><p><code>void printk(const char *fmt, ...) </code> </p>
+<ul>
+<li><code>void</code>: 函数不返回任何值。</li>
+<li><code>const char \*fmt</code>: 这是一个字符串指针，指向“格式字符串”（例如 <code>&quot;Value: %d\n&quot;</code>）。</li>
+<li><code>...</code>: 这是一个变长参数。它允许你在调用函数时传入任意数量、任意类型的参数。</li>
+</ul>
+</li>
+<li><p><code>va_list ap;</code> 定义一个名为 <code>ap</code> 的列表变量，用于存储变长参数的信息。</p>
+</li>
+<li><p><code>va_start(ap, fmt);</code> 初始化 <code>ap</code>。它告诉编译器：变长参数是从 <code>fmt</code> 之后开始的。</p>
+</li>
+<li><p><code>vprintfmt(outputk, NULL, fmt, ap);</code> </p>
+<ul>
+<li><code>vprintfmt</code>: 这是一个通用的格式化引擎。它会扫描 <code>fmt</code> 字符串，每当遇到 <code>%</code>（如 <code>%d</code>, <code>%s</code>, <code>%x</code>）时，就从 <code>ap</code> 中取出一个参数进行转换。</li>
+<li><code>outputk</code>: 这是一个回调函数。<code>vprintfmt</code> 每处理好一个字符，就会调用 <code>outputk</code> 把这个字符发送到硬件设备。</li>
+<li><code>NULL</code>: 观察到这里的 <code>NULL</code> 对应 <code>void outputk(void *data, const char *buf, size_t len)</code> 里的 <code>data</code> ，但代码里无论是 <code>outputk</code> 还是 <code>printcharc</code> 都没有用到它。</li>
+</ul>
+</li>
+<li><p><code> va_end(ap);</code> 清理并关闭 <code>ap</code> 列表。在某些架构上这可能只是简单的宏定义，但在编写健壮的代码时，它是规范要求的，能防止栈损坏。</p>
+</li>
+</ul>
+<h2 id="Extra"><a href="#Extra" class="headerlink" title="Extra"></a>Extra</h2><p>26年extra要仿照 <code>printk</code> 完成新函数 <code>scank</code> 。本次的注释给得相当到位，堪称宝宝巴士。</p>
+<blockquote>
+<p><strong>本题需要精准实现标准格式控制符（<code>%c</code>、<code>%u</code>、<code>%s</code>）对字符流的“吞吐行为”。</strong> 由于在解析变长数据（如读取数字和字符串）时，程序通常需要多读一个不属于该格式的字符才知道当前读取已经结束。因此，如何妥善保管这个“多读出来”的字符，不让它被丢弃，使得下一个格式符能继续正常解析，是本次实现的关键。</p>
+</blockquote>
+<p>题中函数调用关系：</p>
+<ul>
+<li><code>scank</code><ul>
+<li><code>vscanfmt</code> <ul>
+<li><code>scan_c</code></li>
+<li><code>scan_s</code></li>
+<li><code>scan_u</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>此处放一下我的代码</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br></pre></td><td class="code"><pre><span class="line">// kern/printk.c</span><br><span class="line">int scank(const char *fmt, ...) &#123;</span><br><span class="line">    /* ---------------------------------- */</span><br><span class="line">    /* Lab 1-extra: Your code here. (1/4)      */</span><br><span class="line">    /* 提示：</span><br><span class="line">       1. 仿照 printk 的实现，使用 va_list 处理可变参数。</span><br><span class="line">       2. 调用 vscanfmt（传入刚写好的 inputk 回调函数）。</span><br><span class="line">       3. 本函数的返回值 ret 应为 vscanfmt 的执行结果。</span><br><span class="line">    */</span><br><span class="line">    /* ---------------------------------- */</span><br><span class="line">	int ret;</span><br><span class="line">	va_list ap; </span><br><span class="line">    va_start(ap, fmt);</span><br><span class="line">    ret=vscanfmt(inputk, NULL, fmt, ap);</span><br><span class="line">    va_end(ap);</span><br><span class="line">	return ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// lib/print.c</span><br><span class="line">// ==========================================</span><br><span class="line">// 辅助函数：确保缓冲区里有字符</span><br><span class="line">// ==========================================</span><br><span class="line">static inline void ensure_char(scan_callback_t in, void *data, char *ch, int *ch_valid) &#123;</span><br><span class="line">    if (!*ch_valid) &#123;</span><br><span class="line">        in(data, ch, 1);</span><br><span class="line">        *ch_valid = 1;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// ==========================================</span><br><span class="line">// 辅助函数：跳过前导空白符</span><br><span class="line">// ==========================================</span><br><span class="line">static inline void skip_whitespace(scan_callback_t in, void *data, char *ch, int *ch_valid) &#123;</span><br><span class="line">    ensure_char(in, data, ch, ch_valid);</span><br><span class="line">    while (*ch == &#x27; &#x27; || *ch == &#x27;\t&#x27; || *ch == &#x27;\n&#x27; || *ch == &#x27;\r&#x27;) &#123;</span><br><span class="line">        // 直接覆盖当前字符，不需要改 ch_valid 状态，因为它一直握着有效的最新字符</span><br><span class="line">        in(data, ch, 1);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// ==========================================</span><br><span class="line">// 处理 %c：读第一个输入字符，无论是不是空白</span><br><span class="line">// ==========================================</span><br><span class="line">void scan_c(scan_callback_t in, void *data, char *ch, int *ch_valid, char *cp) &#123;</span><br><span class="line">    /* ---------------------------------- */</span><br><span class="line">    /* Lab 1-extra: Your code here. (2/4)  */</span><br><span class="line">    /* 提示：</span><br><span class="line">       1. 使用辅助函数确保缓冲区里有字符（注意：%c 绝不能跳过空白符！）</span><br><span class="line">       2. 将读取到的字符存入 cp 指向的内存。</span><br><span class="line">       3. 核心：因为该字符已被 %c 实体吃掉，必须将 缓存标志位 置为无效(值为0)。</span><br><span class="line">    */</span><br><span class="line">    /* ---------------------------------- */</span><br><span class="line"></span><br><span class="line">	ensure_char(in,data,ch,ch_valid);</span><br><span class="line">	*cp=*ch;</span><br><span class="line">	*ch_valid=0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// ==========================================</span><br><span class="line">// 处理 %s：跳过前导空白，读到空白符终止</span><br><span class="line">// ==========================================</span><br><span class="line">void scan_s(scan_callback_t in, void *data, char *ch, int *ch_valid, char *cp) &#123;</span><br><span class="line">    /* ---------------------------------- */</span><br><span class="line">    /* Lab 1-extra: Your code here. (3/4)  */</span><br><span class="line">    /* 提示：</span><br><span class="line">       1. 使用辅助函数跳过所有的前导空白符。</span><br><span class="line">       2. 连续读取非空白字符并存入 cp(可以在循环内部使用 *cp++ = *ch 进行赋值)。</span><br><span class="line">       3. 遇到空白符或 &#x27;\0&#x27; 时停止读取。</span><br><span class="line">       4. 别忘了在字符串末尾添加 &#x27;\0&#x27; 封口。</span><br><span class="line">       5. 停下时：ch 里必须正好握着导致停止的“空白符”，且保持 缓存标志位 置为有效(值为1)。</span><br><span class="line">    */</span><br><span class="line">    /* ---------------------------------- */</span><br><span class="line">	skip_whitespace(in,data,ch,ch_valid);</span><br><span class="line">	ensure_char(in,data,ch,ch_valid);</span><br><span class="line">	while(*ch!=&#x27; &#x27; &amp;&amp; *ch!=&#x27;\t&#x27; &amp;&amp; *ch!=&#x27;\n&#x27; &amp;&amp; *ch!=&#x27;\r&#x27; &amp;&amp; *ch!=&#x27;\0&#x27;)&#123;</span><br><span class="line">		*cp++=*ch;</span><br><span class="line">		in(data,ch,1);</span><br><span class="line">		ensure_char(in,data,ch,ch_valid);</span><br><span class="line">	&#125;</span><br><span class="line">	*cp=&#x27;\0&#x27;;</span><br><span class="line">	ensure_char(in,data,ch,ch_valid);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// ==========================================</span><br><span class="line">// 处理 %u：跳过前导空白，读到非数字终止</span><br><span class="line">// ==========================================</span><br><span class="line">void scan_u(scan_callback_t in, void *data, char *ch, int *ch_valid, int *ip) &#123;</span><br><span class="line">    /* ---------------------------------- */</span><br><span class="line">    /* Lab 1-extra: Your code here. (4/4)  */</span><br><span class="line">    /* 提示：</span><br><span class="line">       1. 定义变量用于累加数字计算结果。</span><br><span class="line">       2. 使用辅助函数跳过所有的前导空白符。</span><br><span class="line">       3. 兼容可选的前导 &#x27;+&#x27; 号（至多1个）（如果有，调用 in() 越过它）。</span><br><span class="line">       4. 如果遇到的第一个非空白字符就不是数字或 `+`，直接赋值为 `0` 并结束。</span><br><span class="line">       5. 连续读取数字字符（&#x27;0&#x27;-&#x27;9&#x27;），并 计算 十进制数值。</span><br><span class="line">       6. 遇到非数字字符时停止读取，并将结果存入 ip。</span><br><span class="line">       7. 停下时：ch 里必须正好握着导致停止的“非数字字符”，且保持 缓存标志位 置为有效(值为1)。</span><br><span class="line">    */</span><br><span class="line">    /* ---------------------------------- */</span><br><span class="line">	skip_whitespace(in,data,ch,ch_valid);</span><br><span class="line">	int res=0;</span><br><span class="line">	ensure_char(in,data,ch,ch_valid);</span><br><span class="line">	if(*ch==&#x27;+&#x27;)&#123;</span><br><span class="line">		in(data,ch,1);</span><br><span class="line">	&#125;</span><br><span class="line">	ensure_char(in,data,ch,ch_valid);</span><br><span class="line">	while(*ch&gt;=&#x27;0&#x27;&amp;&amp;*ch&lt;=&#x27;9&#x27;)&#123;</span><br><span class="line">		res=res*10+*ch-&#x27;0&#x27;;</span><br><span class="line">		in(data,ch,1);</span><br><span class="line">		ensure_char(in,data,ch,ch_valid);</span><br><span class="line">	&#125;</span><br><span class="line">	*ip=res;</span><br><span class="line">	ensure_char(in,data,ch,ch_valid);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// ==========================================</span><br><span class="line">// 主入口：vscanfmt</span><br><span class="line">// ==========================================</span><br><span class="line">int vscanfmt(scan_callback_t in, void *data, const char *fmt, va_list ap) &#123;</span><br><span class="line">    char ch;</span><br><span class="line">    int ch_valid = 0; // 缓存标志位</span><br><span class="line">    int ret = 0;</span><br><span class="line"></span><br><span class="line">    while (*fmt) &#123;</span><br><span class="line">        if (*fmt == &#x27;%&#x27;) &#123;</span><br><span class="line">            fmt++; // 跳过 &#x27;%&#x27;</span><br><span class="line"></span><br><span class="line">            switch (*fmt) &#123;</span><br><span class="line">            case &#x27;s&#x27;:</span><br><span class="line">                scan_s(in, data, &amp;ch, &amp;ch_valid, va_arg(ap, char *));</span><br><span class="line">                ret++;</span><br><span class="line">                break;</span><br><span class="line"></span><br><span class="line">            case &#x27;u&#x27;:</span><br><span class="line">                scan_u(in, data, &amp;ch, &amp;ch_valid, va_arg(ap, int *));</span><br><span class="line">                ret++;</span><br><span class="line">                break;</span><br><span class="line"></span><br><span class="line">            case &#x27;c&#x27;:</span><br><span class="line">                scan_c(in, data, &amp;ch, &amp;ch_valid, va_arg(ap, char *));</span><br><span class="line">                ret++;</span><br><span class="line">                break;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        fmt++;</span><br><span class="line">    &#125;</span><br><span class="line">    return ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<p>个人觉得这次的重点应该是区分 <code>in</code> 和 <code>ensure_char</code> 。</p>
+
+		</div>
+
+		
+
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="prev" rel="prev" href="/2026/05/06/os-lab2/">
+					<span class="left arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-left"></i>
+					</span>
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">BUAA-OS-lab2</span>
+						<span class="post-nav-item">Prev posts</span>
+					</span>
+				</a>
+			</div>
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2026/05/03/oo-U1/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">BUAA-OO-U1</span>
+						<span class="post-nav-item">Next posts</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        Comments
+    </div>
+    
+
+        
+            
+    <div id="waline"></div>
+    <script type="module" data-swup-reload-script>
+      import { init } from '/js/libs/waline.mjs';
+
+      function loadWaline() {
+        init({
+          el: '#waline',
+          serverURL: 'https://example.example.com',
+          dark: 'body[class~="dark-mode"]',
+          reaction: false,
+          requiredMeta: ['nick', 'mail'],
+          emoji: [],
+                    lang: 'zh-CN',
+        });
+      }
+
+      if (typeof swup !== 'undefined') {
+        loadWaline();
+      } else {
+        window.addEventListener('DOMContentLoaded', loadWaline);
+      }
+    </script>
+
+
+
+        
+    
+</div>
+
+		</div>
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">On this page</div>
+		<div class="page-title">BUAA-OS-lab1</div>
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%85%E6%A0%B8%E5%92%8C%E5%90%AF%E5%8A%A8"><span class="nav-text">内核和启动</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Makefile"><span class="nav-text">Makefile</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E7%9B%AE%E5%BD%95"><span class="nav-text">文件目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ELF"><span class="nav-text">ELF</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Exam"><span class="nav-text">Exam</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MIPS%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80"><span class="nav-text">MIPS内存布局</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#printk"><span class="nav-text">printk</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Extra"><span class="nav-text">Extra</span></a></li></ol></li></ol>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2026&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">Dawn</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        5 posts in total
+                    </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.5</a></span>
+        </div>
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+            
+                
+
+                    
+                        <script data-swup-reload-script>
+  (function() {
+    var LIGHT_PATH = '/images/light.jpg';
+    var DARK_PATH  = '/images/dark.jpg';
+
+    function checkAndSwitch() {
+      var isDark = document.documentElement.classList.contains('dark');
+      
+      // 【修复点】改用 if-else 避免 YAML 解析冒号报错
+      var targetSrc;
+      if (isDark) {
+        targetSrc = DARK_PATH;
+      } else {
+        targetSrc = LIGHT_PATH;
+      }
+
+      var avatars = document.querySelectorAll('.avatar img, .side-tools-avatar img, .navbar-logo img');
+
+      avatars.forEach(function(img) {
+        if (img.getAttribute('src') !== targetSrc) {
+          img.src = targetSrc;
+          img.setAttribute('data-src', targetSrc);
+          img.classList.add('lazyloaded');
+        }
+      });
+    }
+
+    // 1. 初始化
+    checkAndSwitch();
+    window.addEventListener('load', checkAndSwitch);
+
+    // 2. 监听 class 变化 (对应 swup-enabled dark/light)
+    var observer = new MutationObserver(checkAndSwitch);
+    observer.observe(document.documentElement, { 
+      attributes: true, 
+      attributeFilter: ['class'] 
+    });
+
+    // 3. 兼容 Pjax/Swup
+    if (window.swup) {
+      try {
+        // 兼容不同版本的事件写法
+        var handler = window.swup.hooks ? window.swup.hooks : window.swup;
+        var eventName = window.swup.hooks ? 'content:replace' : 'contentReplaced';
+        if (handler.on) handler.on(eventName, checkAndSwitch);
+      } catch (e) {}
+    }
+  })();
+</script>
+
+                    
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
+</div>
+
+	
+
+</main>
+
+
+
+<script src="/js/build/libs/Swup.min.js"></script>
+
+<script src="/js/build/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/build/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+	
+<script src="/js/build/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/build/utils.js" type="module"></script>
+
+<script src="/js/build/main.js" type="module"></script>
+
+<script src="/js/build/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/build/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/build/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/build/layouts/categoryList.js" type="module"></script>
+
+
+
+
+
+    
+<script src="/js/build/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/tools/runtime.js"></script>
+
+    
+<script src="/js/build/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/build/libs/Typed.min.js"></script>
+
+  
+<script src="/js/build/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+
+
+    
+<script src="/js/build/libs/anime.min.js"></script>
+
+
+
+
+
+    
+<script src="/js/build/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+<script src="/js/build/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+
+	
+</body>
+
+</html>
